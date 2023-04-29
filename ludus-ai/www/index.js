@@ -101,8 +101,6 @@ const messageList = [
     }
 ];
 
-const messageElementList = []
-
 function chooseRandomElement(list) {
     return list[Math.floor(Math.random() * list.length)];
 
@@ -127,10 +125,6 @@ function addMessage(content, role) {
         role: role,
         content: content
     });
-
-    if (role == 'ai' || role == 'assistant') {
-        messageElementList.push(newChatElement);
-    }
 }
 
 function sendUserMessage() {
@@ -139,9 +133,9 @@ function sendUserMessage() {
 
     addMessage(text, "user");
 
-    addMessage("One moment...", "assistant")
+    addMessage("One moment...", "ai")
     generateResponse().then(data => {
-        chatBox.removeChild(messageElementList.pop())
+        messageList.pop();
         addMessage(data, "assistant");
     });
 }
