@@ -106,6 +106,12 @@
             e.preventDefault();
             const name = document.getElementById("name");
             const interests = document.getElementById("interests");
+
+            if (!name.value || !interests.value) {
+              if (!name) {
+                name.placeholder = "Please enter your name."
+              }
+            }
             sessionStorage.setItem('name', name.value);
             sessionStorage.setItem('interests', interests.value);
 
