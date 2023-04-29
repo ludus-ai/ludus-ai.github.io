@@ -8,9 +8,9 @@ const userName = sessionStorage.getItem('name');
 const userInterests = sessionStorage.getItem('interests');
 
 const rateLimitedMessages = [
-"slow down bruv we rate limited af",
-"openai wants to know your location, you spammin too much",
-"need4speed this is not. slow the fuck down"
+"We're having some trouble keeping up with demand. Please try again in a bit.",
+"Looks like you're sending messages too fast, or too many people are talking to me. Please try again in a bit.",
+"It seems lots of people are talking to me, and I can't keep up. Please try again in a bit."
 ];
 
 
@@ -169,7 +169,7 @@ function query(data) {
         fetch(
             "https://api.openai.com/v1/chat/completions",
             {
-                headers: { Authorization: "Bearer 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", "Content-Type": "application/json" },
+                headers: { Authorization: "Bearer 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", "Content-Type": "application/json" },
                 method: "POST",
                 body: JSON.stringify({
                     "model": "gpt-3.5-turbo",
