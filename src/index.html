@@ -1,104 +1,101 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Account Creation</title>
+    <title>Welcome to Ludus AI</title>
 
     <style>
-        :root {
-          --discord-blurple: #7289da;
-          --discord-dark: #36393f;
-          --discord-light: #fff;
-          --discord-grey: #99aab5;
-        }
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500&display=swap');
+    </style>
 
-        body {
-          background-color: var(--discord-dark);
-          font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-          font-size: 16px;
-          color: var(--discord-light);
-        }
-
-        form {
-          background-color: var(--discord-dark);
-          padding: 20px;
-          border-radius: 10px;
-          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-          width: 500px;
-          margin: auto;
-        }
-
-        h1 {
-          text-align: center;
-          color: var(--discord-light);
-          font-weight: normal;
-          font-size: 28px;
-        }
-
-        label {
-          display: block;
-          margin-bottom: 5px;
-          color: var(--discord-grey);
-        }
-
-        input[type="text"],
-        textarea {
-          width: 100%;
-          padding: 10px;
-          border-radius: 5px;
-          border: 1px solid var(--discord-grey);
-          margin-bottom: 20px;
-          box-sizing: border-box;
-          background-color: var(--discord-dark);
-          color: var(--discord-light);
-        }
-
-        button {
-          background-color: var(--discord-blurple);
-          color: var(--discord-light);
-          border: none;
-          padding: 10px 20px;
-          border-radius: 5px;
-          cursor: pointer;
-          font-size: 16px;
-        }
-
-        button {
-          background-color: #677bc4;
-        }
-
-  </style>
-  </head>
-  <body>
-    <h1>Create Account</h1>
-    <form>
-      <label for="name">Name:</label>
-      <input type="text" name="name" id="name" required>
-      <br>
-      <label for="interests">Special Interests:</label>
-      <textarea name="interests" id="interests" required></textarea>
-      <br>
-      <button id="btn" value="Create Account">
-  </form>
-
-    <script defer>
-      const btn = document.getElementById("btn");
-
-      function continueToMain(e) {
-            e.preventDefault();
-            const name = document.getElementById("name");
-            const interests = document.getElementById("interests");
-            sessionStorage.setItem('name', name.value);
-            sessionStorage.setItem('interests', interests.value);
-
-            console.log(sessionStorage.getItem('name'));
-
-            window.location = "main.html"
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Poppins, sans-serif;
+        background-color: #36393F;
+        color: #FFF;
       }
 
-      btn.addEventListener('click', continueToMain)
-    </script>
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
 
-    
+      .title {
+        font-size: 3rem;
+        font-weight: bold;
+        font-family: Poppins, sans-serif;
+        margin: 0;
+        position: relative;
+        transition: all 0.3s ease;
+        color: #FFF;
+      }
+
+      .title .line {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #7289DA;
+        transform: scaleX(0);
+        transform-origin: bottom;
+        transition: transform 0.3s ease;
+      }
+
+      .title:hover .line {
+        transform: scaleX(1);
+      }
+
+      .subtitle {
+        font-family: Poppins;
+        font-size: 1.5rem;
+        margin: 0;
+        text-align: center;
+        color: #B9BBBE;
+        font-weight: normal;
+        margin-bottom: 2rem;
+      }
+
+      .btn {
+        background-color: #7289DA;
+        color: #FFF;
+        font-size: 1rem;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: all 0.3s ease;
+      }
+
+      .btn:hover {
+        background-color: #677BC4;
+      }
+
+      :root {
+        --color-background: #36393F;
+        --color-text: #FFF;
+        --color-primary: #7289DA;
+        --color-primary-dark: #677BC4;
+        --color-secondary: #B9BBBE;
+      }
+
+
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Ludus AI<span class="line"></span></h1>
+      <h2 class="subtitle">An interactive teacher for personalized education.</h2>
+      <a href="account.html" class="btn">Try the prototype</a>
+    </div>
   </body>
 </html>

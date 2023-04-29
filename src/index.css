@@ -16,10 +16,11 @@ body {
 .chat-box {
     display: flex;
     flex-direction: column;
+    margin-bottom: 50px;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
-    height: 700px; /* increase the height */
+    height: 500px; /* increase the height */
     width: 700px;
     overflow-y: auto;
     background-color: #36393f; /* Discord's dark gray */
@@ -79,4 +80,10 @@ body {
 
 .submit-button:hover {
     background-color: #677bc4;
+}
+
+footer {
+    margin-top: 10vh;
+    text-align: center;
+    font-family: Poppins, sans-serif;
 }
