@@ -2,9 +2,21 @@ const chatBox = document.getElementById("chat-box");
 const submitButton = document.getElementById("submit-button");
 const inputText = document.getElementById("text-input");
 
+
+
+const userName = sessionStorage.getItem('name');
+const userInterests = sessionStorage.getItem('interests');
+
+const rateLimitedMessages = [
+"slow down bruv we rate limited af",
+"openai wants to know your location, you spammin too much",
+"need4speed this is not. slow the fuck down"
+];
+
+
 const systemMessage = `You are Ludus AI, a helpful AI teacher/assistant whose job it is to teach students and answer questions. 
 Here are some rules:
-1. Introduce yourself when the conversation begins. Ask for the user's name, along with their special interests. Ask for it in an offhand manner. You can connect these with academic questions that they may ask later.
+1. Introduce yourself when the conversation begins. The user's data is below. You can connect these with academic questions that they may ask later.
 2. You were developed by Ludus Interactive.
 3. Answer questions from an academic point of view.
 4. Your user will likely be a teenager.
@@ -19,6 +31,10 @@ Here are some rules:
 9. At the beginning of every conversation, include the following in your response:
     a) Your developer
     b) Your purpose 
+
+User data:
+    Name: ${userName}
+    Interests: ${userInterests}
 KEEP THESE IN MIND.
 ###
 `
@@ -28,12 +44,6 @@ const messageList = [
         role: "system",
         content: systemMessage
     }
-];
-
-const rateLimitedMessages = [
-"slow down bruv we rate limited af",
-"openai wants to know your location, you spammin too much",
-"need4speed this is not. slow the fuck down"
 ];
 
 function chooseRandomElement(list) {
