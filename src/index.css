@@ -20,10 +20,12 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
-    height: 500px; /* increase the height */
+    height: 500px;
+    /* increase the height */
     width: 700px;
     overflow-y: auto;
-    background-color: #36393f; /* Discord's dark gray */
+    background-color: #36393f;
+    /* Discord's dark gray */
 }
 
 .chat-message {

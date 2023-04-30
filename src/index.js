@@ -8,9 +8,9 @@ const userName = localStorage.getItem('name');
 const userInterests = localStorage.getItem('interests');
 
 const rateLimitedMessages = [
-"We're having some trouble keeping up with demand. Please try again in a bit.",
-"Looks like you're sending messages too fast, or too many people are talking to me. Please try again in a bit.",
-"It seems lots of people are talking to me, and I can't keep up. Please try again in a bit."
+    "We're having some trouble keeping up with demand. Please try again in a bit.",
+    "Looks like you're sending messages too fast, or too many people are talking to me. Please try again in a bit.",
+    "It seems lots of people are talking to me, and I can't keep up. Please try again in a bit."
 ];
 
 
@@ -113,12 +113,10 @@ User data:
 KEEP THESE IN MIND.;
 `
 
-const messageList = [
-    {
-        role: "system",
-        content: systemMessage
-    }
-];
+const messageList = [{
+    role: "system",
+    content: systemMessage
+}];
 
 const messageElementList = []
 
@@ -127,14 +125,15 @@ let systemMessageCounter = 0;
 function chooseRandomElement(list) {
     return list[Math.floor(Math.random() * list.length)];
 
-}	
+}
+
 function compileMessageList() {
     let text = "";
 
     for (let message of messageList) {
         text += `${message.role}: ${message.text}\n`;
     }
-    
+
     return text
 }
 
@@ -180,7 +179,7 @@ function generateResponse() {
     // 	});
 
     console.log("Generating a response...");
-    
+
 
     return query(compileMessageList())
 }
@@ -189,7 +188,7 @@ function query(data) {
     console.log("Querying OpenAI API...");
 
     return new Promise((resolve, reject) => {
-        
+
         if (systemMessageCounter == 4) {
             systemMessageCounter = 0;
 
@@ -200,47 +199,49 @@ function query(data) {
         } else {
             systemMessageCounter += 1;
         }
-        
+
 
 
         fetch(
-            "https://api.openai.com/v1/chat/completions",
-            {
-                headers: { Authorization: "Bearer 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", "Content-Type": "application/json" },
-                method: "POST",
-                body: JSON.stringify({
-                    "model": "gpt-3.5-turbo",
-                    "messages": messageList,
-                    "temperature": 0.7,
-                })
-            }
-        )
-        .then(res => {
-            console.log("Recieved response, which is: ");
-            console.log(res);
-
-            res = res.json();
-            res.then(res => {
-                console.log("JSONified:");
+                "https://api.openai.com/v1/chat/completions", {
+                    headers: {
+                        Authorization: "Bearer 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",
+                        "Content-Type": "application/json"
+                    },
+                    method: "POST",
+                    body: JSON.stringify({
+                        "model": "gpt-3.5-turbo",
+                        "messages": messageList,
+                        "temperature": 0.7,
+                    })
+                }
+            )
+            .then(res => {
+                console.log("Recieved response, which is: ");
                 console.log(res);
 
-                if (res.error) {
-                    resolve(chooseRandomElement(rateLimitedMessages));
-                    return;
-                }
-            
-                console.log("Generated text: ");
-                
-                let finalResponse = res.choices[0].message.content;
+                res = res.json();
+                res.then(res => {
+                    console.log("JSONified:");
+                    console.log(res);
 
-                finalResponse = marked.marked(finalResponse);
+                    if (res.error) {
+                        resolve(chooseRandomElement(rateLimitedMessages));
+                        return;
+                    }
 
-                resolve(finalResponse)
-            });
-            
-        })
+                    console.log("Generated text: ");
+
+                    let finalResponse = res.choices[0].message.content;
+
+                    finalResponse = marked.marked(finalResponse);
+
+                    resolve(finalResponse)
+                });
+
+            })
     });
-    
+
 }
 
 submitButton.addEventListener('click', (e) => {
