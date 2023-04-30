@@ -101,30 +101,23 @@
 
     <script defer>
       const btn = document.getElementById("btn");
-      const name = document.getElementById("name");
-      const interests = document.getElementById("interests");
-
-      if (localStorage.getItem("name")) {
-        name.value = localStorage.getItem("name");
-      }
-
-      if (localStorage.getItem("interests")) {
-        interests.value = localStorage.getItem("interests");
-      }
 
       function continueToMain(e) {
             e.preventDefault();
-            
+            const name = document.getElementById("name");
+            const interests = document.getElementById("interests");
 
             if (!name.value || !interests.value) {
-              if (!name) {
-                name.placeholder = "Please enter your name."
-              }
+              name.placeholder = !name.value ? "Please enter a name for the AI to address you.": "";
+              interests.placeholder = !interests.value ? "Please enter some interests to personalise your conversation.": "";
+              
+              // TODO add a way for the user to enter their age, or maybe just some info on themselves
+              return;
             }
             localStorage.setItem('name', name.value);
             localStorage.setItem('interests', interests.value);
 
-            console.log(local.getItem('name'));
+            console.log(localStorage.getItem('name'));
 
             window.location = "main.html"
       }
