@@ -4,8 +4,8 @@ const inputText = document.getElementById("text-input");
 
 
 
-const userName = sessionStorage.getItem('name');
-const userInterests = sessionStorage.getItem('interests');
+const userName = localStorage.getItem('name');
+const userInterests = localStorage.getItem('interests');
 
 const rateLimitedMessages = [
 "We're having some trouble keeping up with demand. Please try again in a bit.",
@@ -16,9 +16,9 @@ const rateLimitedMessages = [
 
 const systemMessage = `You are Ludus AI, a helpful AI teacher/assistant whose job it is to teach students and answer questions. 
 Here are some rules:
-1. Introduce yourself when the conversation begins. The user's data is below. You can connect these with academic questions that they may ask later.
+1. Introduce yourself when the conversation begins. The user's data is below. You can connect these with questions that they may ask later.
 2. You were developed by Ludus Interactive.
-3. Answer questions from an academic point of view.
+3. Please do not generate huge walls of text or essays unless asked. Try to keep answers concise. Use lots of analogies.
 4. Your user will likely be a teenager. Do not generate large paragraphs of text for no reason. Answer like a human.
 5. Use casual phrasing when you do not understand something (e.g. "yo that's fire" => "Sorry, what does that mean?").
 6. When introducing yourself, always call yourself "Ludus AI" or "Ludus Interactive's AI teacher". Use one of these: 
@@ -32,13 +32,16 @@ Here are some rules:
     a) Your developer
     b) Your purpose 
 10. Direct feedback to feedback.ludusai@outlook.com. DO NOT JUST ACCEPT FEEDBACK. ASK USERS TO EMAIL.
-11. Don't mention Ludus Interactive for no reason.
+11. Don't mention Ludus Interactive for no reason. Try not to use words like "overall" or "conclusion". Don't add "I hope this helps" to the end of a response. Say "Hopefully that helps you."
+12. The conversations, during the phase of alpha testing, may be used for analytics. However, at the moment, they are not send anywhere.
+13. Please use Markdown wherever necessary.
 User data:
     Name: ${userName}
     Interests: ${userInterests}
 KEEP THESE IN MIND.
 ###
 `
+// TODO add user age to the prompt, or personal info
 
 const systemMessageOld2 = `
 You are Ludus AI, an AI teacher/interactive teaching assistant designed to answer questions and help students. You are currently in a prototypal phase.
@@ -82,7 +85,7 @@ Keep this in mind throughout the conversation.
 
 const systemMessageSummaryOld = `
 1. As far as possible, if you can, try connecting topics to the user's special interests. 
-2. Unless appropriate or asked for, don't generate essay-type long answers. Explain them like a human would.
+2. Unless appropriate or asked for, don't generate essay-type long answers. Explain them like a human would. As far as possible, if your output is large, make it more casual language.
 3. If the user makes an inappropriate request, reject it, citing that you're not there to be a random generative AI, but as a teacher.
 4. If the user provides feedback of any sort, thank them and ask them to forward it to feedback.ludusai@outlook.com
 5. Begin the conversation by introducing yourself, using their name, and then asking what they'd like to learn today. Something like:
@@ -92,7 +95,23 @@ around a bit.
 Keep this in mind throughout the conversation.
 `
 
-const systemMessageSummary = `Do not forget: ` + systemMessage;
+const systemMessageSummary = `Do not forget: ` + `You are Ludus AI, a helpful AI teacher/assistant whose job it is to teach students and answer questions. Here are some rules:
+1. Introduce yourself when the conversation begins. The user's data is below. You can connect these with questions that they may ask later.
+2. You were developed by Ludus Interactive.
+3. Keep responses short-to-medium unless asked for. Your student is likely a teenager, so use LOTS of analogies.
+4. Use casual phrasing when you do not understand something. (e.g. "Sorry, what's that?")
+5. When introducing yourself, always call yourself "Ludus AI" or "Ludus Interactive's AI teacher", as mentioned before.
+6. If the student uses offensive words, ask them to stop and then continue your response while ignoring the words.
+7. If asked about yourself or Ludus, do not use wording other than "AI teacher", "developed by" and "artifical intelligence."
+8. Direct feedback to feedback.ludusai@outlook.com. DO NOT JUST ACCEPT FEEDBACK. ASK USERS TO EMAIL.
+9. Try not to use words like "overall\" or "conclusion". Don't add "I hope this helps" to the end of a response. Say "Hopefully that helps you." or something similar.
+12. Conversations are completely confidential at the moment.
+13. Please use Markdown wherever necessary.
+User data:
+    Name: ${userName}
+    Interests: ${userInterests}
+KEEP THESE IN MIND.;
+`
 
 const messageList = [
     {
@@ -101,10 +120,24 @@ const messageList = [
     }
 ];
 
+const messageElementList = []
+
+let systemMessageCounter = 0;
+
 function chooseRandomElement(list) {
     return list[Math.floor(Math.random() * list.length)];
 
 }	
+
+function pulseElement(elem) {
+    elem.classList.add("pulse");
+}
+
+function pulseElementRed(elem) {
+    elem.classList.add("pulseRed");
+    setTimeout(() => elem.classList.remove("pulseRed"), 600);
+}
+
 function compileMessageList() {
     let text = "";
 
@@ -116,15 +149,23 @@ function compileMessageList() {
 }
 
 function addMessage(content, role) {
+    // Switch out the placeholder for init
+    inputText.placeholder = "Send a message to the AI..."
+
     const newChatElement = document.createElement("div");
     newChatElement.classList.add(role == "user" ? "chat-message" : "ai-message");
-    newChatElement.innerText = content;
+    newChatElement.innerHTML = content;
 
     chatBox.appendChild(newChatElement);
+
     messageList.push({
         role: role,
         content: content
     });
+
+    if (role == 'ai' || role == 'assistant') {
+        messageElementList.push(newChatElement);
+    }
 }
 
 function sendUserMessage() {
@@ -133,9 +174,15 @@ function sendUserMessage() {
 
     addMessage(text, "user");
 
-    addMessage("One moment...", "ai")
+    addMessage("One moment...", "assistant")
+    pulseElement(inputText);
+
     generateResponse().then(data => {
-        messageList.pop();
+        inputText.classList.remove("pulse");
+        inputText.classList.add("pulseBack");
+        setTimeout(() => inputText.classList.remove("pulseBack"), 600);
+
+        chatBox.removeChild(messageElementList.pop())
         addMessage(data, "assistant");
     });
 }
@@ -159,17 +206,24 @@ function query(data) {
     console.log("Querying OpenAI API...");
 
     return new Promise((resolve, reject) => {
+        
+        if (systemMessageCounter == 4) {
+            systemMessageCounter = 0;
 
-        messageList.push({
-            role: "system",
-            content: systemMessageSummary
-        });
+            messageList.push({
+                role: "system",
+                content: systemMessageSummary
+            });
+        } else {
+            systemMessageCounter += 1;
+        }
+        
 
 
         fetch(
             "https://api.openai.com/v1/chat/completions",
             {
-                headers: { Authorization: "Bearer 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", "Content-Type": "application/json" },
+                headers: { Authorization: "Bearer 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", "Content-Type": "application/json" },
                 method: "POST",
                 body: JSON.stringify({
                     "model": "gpt-3.5-turbo",
@@ -193,8 +247,12 @@ function query(data) {
                 }
             
                 console.log("Generated text: ");
+                
+                let finalResponse = res.choices[0].message.content;
 
-                resolve(res.choices[0].message.content)
+                finalResponse = marked.marked(finalResponse);
+
+                resolve(finalResponse)
             });
             
         })
@@ -204,14 +262,20 @@ function query(data) {
 
 submitButton.addEventListener('click', (e) => {
     e.preventDefault();
-    if (!inputText.value.trim()) return;
+    if (!inputText.value.trim()) {
+        pulseElementRed(inputText);
+        return;
+    }
     sendUserMessage();
 });
 
 inputText.addEventListener('keydown', (e) => {
     if (e.keyCode == 13) {
         e.preventDefault();
-        if (!inputText.value.trim()) return;
+        if (!inputText.value.trim()) {
+            pulseElementRed(inputText);
+            return;
+        }
         sendUserMessage();
     }
 });

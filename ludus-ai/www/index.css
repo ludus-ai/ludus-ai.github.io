@@ -57,8 +57,8 @@ body {
     margin-bottom: 20px;
     background-color: #40444b;
     color: #fff;
-    border: none;
     outline: none;
+    border: solid 1px;
 }
 
 .text-input:focus {
@@ -86,4 +86,61 @@ footer {
     margin-top: 10vh;
     text-align: center;
     font-family: Poppins, sans-serif;
+}
+
+@keyframes pulse {
+    1% {
+        border: solid 1px #fff;
+    }
+    50% {
+        border: solid 1px cyan;
+    }
+    100% {
+        border: solid 1px #fff;
+    }
+}
+
+.pulse {
+    animation-name: pulse;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes pulseBack {
+    0% {
+        border: solid 1px currentColor;
+    }
+
+    100% {
+        border: solid 1px #fff;
+    }
+}
+
+.pulseback {
+    animation-name: pulseBack;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes pulseRed {
+    0% {
+        border: solid 1px currentColor;
+    }
+
+    50% {
+        border: solid 1px red;
+    }
+
+    100% {
+        border: solid 1px #fff;
+    }
+}
+
+.pulseRed {
+    animation-name: pulseRed;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
 }
