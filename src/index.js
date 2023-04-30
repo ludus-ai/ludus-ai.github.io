@@ -33,12 +33,15 @@ Here are some rules:
     b) Your purpose 
 10. Direct feedback to feedback.ludusai@outlook.com. DO NOT JUST ACCEPT FEEDBACK. ASK USERS TO EMAIL.
 11. Don't mention Ludus Interactive for no reason. Try not to use words like "overall" or "conclusion". Don't add "I hope this helps" to the end of a response. Say "Hopefully that helps you."
+12. The conversations, during the phase of alpha testing, may be used for analytics. However, at the moment, they are not send anywhere.
+13. Please use Markdown wherever necessary.
 User data:
     Name: ${userName}
     Interests: ${userInterests}
 KEEP THESE IN MIND.
 ###
 `
+// TODO add user age to the prompt, or personal info
 
 const systemMessageOld2 = `
 You are Ludus AI, an AI teacher/interactive teaching assistant designed to answer questions and help students. You are currently in a prototypal phase.
@@ -92,7 +95,23 @@ around a bit.
 Keep this in mind throughout the conversation.
 `
 
-const systemMessageSummary = `Do not forget: ` + systemMessage;
+const systemMessageSummary = `Do not forget: ` + `You are Ludus AI, a helpful AI teacher/assistant whose job it is to teach students and answer questions. Here are some rules:
+1. Introduce yourself when the conversation begins. The user's data is below. You can connect these with questions that they may ask later.
+2. You were developed by Ludus Interactive.
+3. Keep responses short-to-medium unless asked for. Your student is likely a teenager, so use LOTS of analogies.
+4. Use casual phrasing when you do not understand something. (e.g. "Sorry, what's that?")
+5. When introducing yourself, always call yourself "Ludus AI" or "Ludus Interactive's AI teacher", as mentioned before.
+6. If the student uses offensive words, ask them to stop and then continue your response while ignoring the words.
+7. If asked about yourself or Ludus, do not use wording other than "AI teacher", "developed by" and "artifical intelligence."
+8. Direct feedback to feedback.ludusai@outlook.com. DO NOT JUST ACCEPT FEEDBACK. ASK USERS TO EMAIL.
+9. Try not to use words like "overall\" or "conclusion". Don't add "I hope this helps" to the end of a response. Say "Hopefully that helps you." or something similar.
+12. Conversations are completely confidential at the moment.
+13. Please use Markdown wherever necessary.
+User data:
+    Name: ${userName}
+    Interests: ${userInterests}
+KEEP THESE IN MIND.;
+`
 
 const messageList = [
     {
@@ -102,6 +121,8 @@ const messageList = [
 ];
 
 const messageElementList = []
+
+let systemMessageCounter = 0;
 
 function chooseRandomElement(list) {
     return list[Math.floor(Math.random() * list.length)];
@@ -120,7 +141,7 @@ function compileMessageList() {
 function addMessage(content, role) {
     const newChatElement = document.createElement("div");
     newChatElement.classList.add(role == "user" ? "chat-message" : "ai-message");
-    newChatElement.innerText = content;
+    newChatElement.innerHTML = content;
 
     chatBox.appendChild(newChatElement);
     messageList.push({
@@ -165,11 +186,18 @@ function query(data) {
     console.log("Querying OpenAI API...");
 
     return new Promise((resolve, reject) => {
+        
+        if (systemMessageCounter == 4) {
+            systemMessageCounter = 0;
 
-        messageList.push({
-            role: "system",
-            content: systemMessageSummary
-        });
+            messageList.push({
+                role: "system",
+                content: systemMessageSummary
+            });
+        } else {
+            systemMessageCounter += 1;
+        }
+        
 
 
         fetch(
@@ -199,8 +227,12 @@ function query(data) {
                 }
             
                 console.log("Generated text: ");
+                
+                let finalResponse = res.choices[0].message.content;
 
-                resolve(res.choices[0].message.content)
+                finalResponse = marked.marked(finalResponse);
+
+                resolve(finalResponse)
             });
             
         })
