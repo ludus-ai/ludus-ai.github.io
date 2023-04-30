@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "electron-builder --win --mac --linux --android"
+    "build": " cd android && gradlew assembleDebug"
   },
   "repository": {
     "type": "git",
