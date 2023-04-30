@@ -120,11 +120,19 @@
 
   <script defer>
     const btn = document.getElementById("btn");
+    const name = document.getElementById("name");
+    const interests = document.getElementById("interests");
+
+    if (localStorage.getItem("name")) {
+      name.value = localStorage.getItem("name")
+    }
+    if (localStorage.getItem("interests")) {
+      interests.value = localStorage.getItem("interests")
+    }
 
     function continueToMain(e) {
       e.preventDefault();
-      const name = document.getElementById("name");
-      const interests = document.getElementById("interests");
+
 
       if (!name.value || !interests.value) {
         name.placeholder = !name.value ? "Please enter a name for the AI to address you." : "";
