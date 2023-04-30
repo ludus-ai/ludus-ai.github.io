@@ -1,0 +1,6 @@
+{
+  "appId": "ai.ludus",
+  "appName": "Ludus AI",
+  "webDir": "src",
+  "bundledWebRuntime": false
+}

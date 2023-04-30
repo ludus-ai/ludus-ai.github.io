@@ -18,34 +18,39 @@
   },
   "homepage": "https://github.com/DarkWolf2244/LudusAI#readme",
   "devDependencies": {
+    "@capacitor/cli": "^4.8.0",
     "electron-builder": "^23.6.0"
   },
   "build": {
-      "appId": "ai.ludus",
-      "productName": "My App",
-      "target": "electron-builder:build",
-      "linux": {
-          "target": "deb"
-      },
-      "mac": {
-          "category": "your.app.category.type"
-      },
-      "win": {
-          "target": "nsis"
-      },
-      "extraFiles": [
-          {
-              "from": "src/res",
-              "to": "res",
-              "filter": [
-                  "**/*"
-              ]
-          }
-      ],
-      "android": {
-          "package": "com.myapp",
-          "versionCode": 1,
-          "versionName": "1.0.0"
+    "appId": "ai.ludus",
+    "productName": "My App",
+    "target": "electron-builder:build",
+    "linux": {
+      "target": "deb"
+    },
+    "mac": {
+      "category": "your.app.category.type"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "extraFiles": [
+      {
+        "from": "src/res",
+        "to": "res",
+        "filter": [
+          "**/*"
+        ]
       }
+    ],
+    "android": {
+      "package": "com.myapp",
+      "versionCode": 1,
+      "versionName": "1.0.0"
+    }
+  },
+  "dependencies": {
+    "@capacitor/android": "^4.8.0",
+    "@capacitor/core": "^4.8.0"
   }
 }
