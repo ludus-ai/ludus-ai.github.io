@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap');
+
 body {
-    background-color: #36393f;
+    /* background-color: #36393f; */
+    background-color: #4a4b57;
     color: #fff;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 14px;
@@ -17,7 +20,7 @@ body {
     display: flex;
     flex-direction: column;
     margin-bottom: 50px;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     border-radius: 5px;
     padding: 10px;
     height: 500px;
@@ -26,6 +29,7 @@ body {
     overflow-y: auto;
     background-color: #36393f;
     /* Discord's dark gray */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .chat-message {
@@ -37,6 +41,9 @@ body {
     align-self: flex-end;
     background-color: #7289da;
     color: #fff;
+
+    font-family: Poppins, sans-serif;
+    font-weight: lighter;
 }
 
 .ai-message {
@@ -48,6 +55,9 @@ body {
     align-self: flex-start;
     background-color: #2f3136;
     color: #fff;
+
+    font-family: Poppins, sans-serif;
+    font-weight: 300;
 }
 
 .text-input {
@@ -59,7 +69,7 @@ body {
     margin-bottom: 20px;
     background-color: #40444b;
     color: #fff;
-    border: none;
+    border: solid 2px #fff;
     outline: none;
 }
 
@@ -88,4 +98,59 @@ footer {
     margin-top: 10vh;
     text-align: center;
     font-family: Poppins, sans-serif;
+}
+
+@keyframes pulse {
+    0% {
+        border-color: #ccc;
+    }
+
+    50% {
+        border-color: cyan;
+    }
+
+    100% {
+        border-color: #ccc;
+    }
+}
+
+.pulse {
+    animation-name: pulse;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes pulse-back {
+    0% {
+        border-color: cyan;
+    }
+
+    100% {
+        border-color: #fff;
+    }
+}
+
+.pulse-back {
+    animation-name: pulse-back;
+    animation-duration: 1s;
+}
+
+@keyframes pulse-red {
+    0% {
+        border-color: #fff;
+    }
+
+    50% {
+        border-color: red;
+    }
+
+    100% {
+        border-color: #fff
+    }
+}
+
+.pulse-red {
+    animation-name: pulse-red;
+    animation-duration: 0.5s;
 }

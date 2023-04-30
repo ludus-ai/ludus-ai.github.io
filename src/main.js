@@ -163,7 +163,14 @@ function sendUserMessage() {
     addMessage(text, "user");
 
     addMessage("One moment...", "assistant")
+
+    inputText.classList.add("pulse");
+
     generateResponse().then(data => {
+        inputText.classList.remove("pulse");
+        inputText.classList.add("pulse-back");
+        setTimeout(() => inputText.classList.remove("pulse-back"), 2);
+
         chatBox.removeChild(messageElementList.pop())
         addMessage(data, "assistant");
     });
@@ -244,16 +251,28 @@ function query(data) {
 
 }
 
+function pulseRed(elem) {
+    elem.classList.add("pulse-red");
+    setTimeout(() => elem.classList.remove("pulse-red"), 600);
+}
+
 submitButton.addEventListener('click', (e) => {
     e.preventDefault();
-    if (!inputText.value.trim()) return;
+    if (!inputText.value.trim()) {
+        pulseRed(inputText);
+        return;
+    }
+
     sendUserMessage();
 });
 
 inputText.addEventListener('keydown', (e) => {
     if (e.keyCode == 13) {
         e.preventDefault();
-        if (!inputText.value.trim()) return;
+        if (!inputText.value.trim()) {
+            pulseRed(inputText);
+            return;
+        }
         sendUserMessage();
     }
 });
