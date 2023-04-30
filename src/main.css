@@ -2,11 +2,16 @@
 
 body {
     /* background-color: #36393f; */
-    background-color: #4a4b57;
+    background-color: #2e2f37;
     color: #fff;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 1.42857;
+}
+
+h1 {
+    font-size: 50px;
+    font-family: Poppins, sans-serif;
 }
 
 .container {
@@ -21,7 +26,7 @@ body {
     flex-direction: column;
     margin-bottom: 50px;
     /* border: 1px solid #ccc; */
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 10px;
     height: 500px;
     /* increase the height */
@@ -69,7 +74,7 @@ body {
     margin-bottom: 20px;
     background-color: #40444b;
     color: #fff;
-    border: solid 2px #fff;
+    border: solid 1px #fff;
     outline: none;
 }
 
