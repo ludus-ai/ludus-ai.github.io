@@ -101,21 +101,30 @@
 
     <script defer>
       const btn = document.getElementById("btn");
+      const name = document.getElementById("name");
+      const interests = document.getElementById("interests");
+
+      if (localStorage.getItem("name")) {
+        name.value = localStorage.getItem("name");
+      }
+
+      if (localStorage.getItem("interests")) {
+        interests.value = localStorage.getItem("interests");
+      }
 
       function continueToMain(e) {
             e.preventDefault();
-            const name = document.getElementById("name");
-            const interests = document.getElementById("interests");
+            
 
             if (!name.value || !interests.value) {
               if (!name) {
                 name.placeholder = "Please enter your name."
               }
             }
-            sessionStorage.setItem('name', name.value);
-            sessionStorage.setItem('interests', interests.value);
+            localStorage.setItem('name', name.value);
+            localStorage.setItem('interests', interests.value);
 
-            console.log(sessionStorage.getItem('name'));
+            console.log(local.getItem('name'));
 
             window.location = "main.html"
       }

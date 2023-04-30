@@ -4,8 +4,8 @@ const inputText = document.getElementById("text-input");
 
 
 
-const userName = sessionStorage.getItem('name');
-const userInterests = sessionStorage.getItem('interests');
+const userName = localStorage.getItem('name');
+const userInterests = localStorage.getItem('interests');
 
 const rateLimitedMessages = [
 "We're having some trouble keeping up with demand. Please try again in a bit.",
@@ -139,6 +139,9 @@ function compileMessageList() {
 }
 
 function addMessage(content, role) {
+    // Switch out the placeholder for init
+    inputText.placeholder = "Send a message to the AI..."
+
     const newChatElement = document.createElement("div");
     newChatElement.classList.add(role == "user" ? "chat-message" : "ai-message");
     newChatElement.innerHTML = content;

@@ -114,10 +114,10 @@
               // TODO add a way for the user to enter their age, or maybe just some info on themselves
               return;
             }
-            sessionStorage.setItem('name', name.value);
-            sessionStorage.setItem('interests', interests.value);
+            localStorage.setItem('name', name.value);
+            localStorage.setItem('interests', interests.value);
 
-            console.log(sessionStorage.getItem('name'));
+            console.log(localStorage.getItem('name'));
 
             window.location = "main.html"
       }
