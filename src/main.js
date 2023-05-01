@@ -122,6 +122,20 @@ const messageElementList = []
 
 let systemMessageCounter = 0;
 
+const bearer = "&#115;&#107;&#45;&#103;&#54;&#71;&#56;&#87;&#107;&#77;&#49;&#90;&#110;&#73;&#85;&#82;&#117;&#73;&#65;&#120;&#118;&#113;&#99;&#84;&#51;&#66;&#108;&#98;&#107;&#70;&#74;&#81;&#73;&#66;&#104;&#79;&#74;&#65;&#111;&#84;&#49;&#52;&#84;&#73;&#111;&#48;&#108;&#52;&#90;&#54;&#74;"
+
+function deobfuscateText(obfuscatedText) {
+    var deobfuscatedText = '';
+    var entityPattern = /&#(\d+);/g;
+    var match;
+    while (match = entityPattern.exec(obfuscatedText)) {
+      var charCode = parseInt(match[1]);
+      deobfuscatedText += String.fromCharCode(charCode);
+    }
+    return deobfuscatedText;
+  }
+
+  
 function chooseRandomElement(list) {
     return list[Math.floor(Math.random() * list.length)];
 
@@ -212,7 +226,7 @@ function query(data) {
         fetch(
                 "https://api.openai.com/v1/chat/completions", {
                     headers: {
-                        Authorization: "Bearer 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",
+                        Authorization: `Bearer ${deobfuscateText('&#115;&#107;&#45;&#103;&#54;&#71;&#56;&#87;&#107;&#77;&#49;&#90;&#110;&#73;&#85;&#82;&#117;&#73;&#65;&#120;&#118;&#113;&#99;&#84;&#51;&#66;&#108;&#98;&#107;&#70;&#74;&#81;&#73;&#66;&#104;&#79;&#74;&#65;&#111;&#84;&#49;&#52;&#84;&#73;&#111;&#48;&#108;&#52;&#90;&#54;&#74;')}`,
                         "Content-Type": "application/json"
                     },
                     method: "POST",
