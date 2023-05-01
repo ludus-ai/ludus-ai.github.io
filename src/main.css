@@ -12,13 +12,13 @@ body {
 h1 {
     font-size: 50px;
     font-family: Poppins, sans-serif;
+    margin-top: 4vh
 }
 
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 50px;
 }
 
 .chat-box {
@@ -30,11 +30,15 @@ h1 {
     padding: 10px;
     height: 500px;
     /* increase the height */
-    width: 700px;
     overflow-y: auto;
     background-color: #36393f;
     /* Discord's dark gray */
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+
+    width: 50vw;
+    height: 55vh;
+    min-width: 300px;
+    max-width: 1400px;
 }
 
 .chat-message {
@@ -49,6 +53,7 @@ h1 {
 
     font-family: Poppins, sans-serif;
     font-weight: lighter;
+
 }
 
 .ai-message {
@@ -66,8 +71,6 @@ h1 {
 }
 
 .text-input {
-    width: 500px;
-    height: 50px;
     padding: 10px;
     font-size: 16px;
     border-radius: 8px;
@@ -76,6 +79,11 @@ h1 {
     color: #fff;
     border: solid 1px #fff;
     outline: none;
+
+    width: 70vw;
+    height: 4vh;
+
+    max-width: 900px
 }
 
 .text-input:focus {
