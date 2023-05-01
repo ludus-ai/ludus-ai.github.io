@@ -212,7 +212,7 @@ function query(data) {
         fetch(
                 "https://api.openai.com/v1/chat/completions", {
                     headers: {
-                        Authorization: "Bearer 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",
+                        Authorization: "Bearer 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",
                         "Content-Type": "application/json"
                     },
                     method: "POST",
