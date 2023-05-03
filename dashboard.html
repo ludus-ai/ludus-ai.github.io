@@ -201,8 +201,8 @@
             display: flex;
             justify-content: center;
             flex-direction: row;
-            width: 100%;
-            height: 100%
+            width: 90%;
+            height: 90%;
         }
 
         .nav-popup-container-2 {
@@ -260,6 +260,17 @@
             flex-direction: row;
             justify-content: center;
         }
+
+        .menu-icon {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            cursor: pointer;
+        }
+
+        .menu-icon img {
+            width: 40px;
+        }
     </style>
 </head>
 
@@ -271,7 +282,10 @@
         <button class="danger" onclick="deleteAccount()">Yes, delete</button>
     </div>
     <div class="container">
+        
         <div class="titleCard">
+            <a class="menu-icon" onclick="nav.toggle()"><img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1024px-Hamburger_icon.svg.png"></a>
             <h1>Student Dashboard</h1>
             <hr>
         </div>
@@ -329,8 +343,8 @@
                         </nav>
                         <hr>
                         <div class="nav-options vflexbox">
-                            <a onclick="closeNavPopup()" class="vflexbox nav-option">Home</a>
-                            <a onclick="nav.goto('dashboard')" class="nav-option vflexbox">Dashboard</a>
+                            <a onclick="nav.goto('main')" class="vflexbox nav-option">Home</a>
+                            <a onclick="nav.close()" class="nav-option vflexbox">Dashboard</a>
                         </div>
                     </div>
                 </div>
@@ -440,6 +454,7 @@
             console.log("Added input listeneer")
         }
     </script>
+    <script src="navigator.js"></script>
 </body>
 
 </html>
