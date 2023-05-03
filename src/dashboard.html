@@ -190,6 +190,8 @@
             -webkit-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
             background-color: #36393f;
+            padding: 1vw;
+            border: solid 1px;
         }
 
         .invisible {
@@ -279,13 +281,16 @@
         <h1>Delete my account</h1>
         <h4>Your details will be removed from your computer. Your AI profile will be deleted. This is permanent.
             Continue?</h4>
-        <button class="danger" onclick="deleteAccount()">Yes, delete</button>
+        <div class="deleteAccountBtnRow">
+            <button class="danger" onclick="deleteAccount()">Yes, delete</button>
+            <button onclick="$('#deleteAccountPopupCard')[0].classList.add('invisible')">No, I changed my mind</button>
+        </div>
     </div>
     <div class="container">
-
+        <a class="menu-icon" onclick="nav.toggle()"><img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1024px-Hamburger_icon.svg.png"></a>
         <div class="titleCard">
-            <a class="menu-icon" onclick="nav.toggle()"><img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1024px-Hamburger_icon.svg.png"></a>
+            
             <h1>Student Dashboard</h1>
             <hr>
         </div>
