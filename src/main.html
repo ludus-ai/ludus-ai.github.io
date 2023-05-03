@@ -25,6 +25,23 @@
 			<input type="text" class="text-input" id="text-input" placeholder="Start talking to the AI...">
 		</form>
 		<button class="submit-button" id="submit-button">Send</button>
+
+		<div class="nav-popup-container">
+			<div class="nav-popup-container-2">
+				<div class="nav-popup">
+					<div class="nav-header">
+						<nav class="hflexbox">
+							<h2>Navigation</h2>
+						</nav>
+						<hr>
+						<div class="nav-options vflexbox">
+							<a onclick="closeNavPopup()" class="vflexbox nav-option">Home</a>
+							<a onclick="nav.goto('dashboard')" class="nav-option vflexbox">Dashboard</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 
@@ -33,8 +50,7 @@
 		_wau.push(["dynamic", "gh4n5bqipi", "zk9", "36393fffffff", "small"]);
 	</script>
 	<script async src="//waust.at/d.js"></script>
-
-
+	<script src="navigator.js"></script>
 
 	<footer>
 		<hr />Developed by Shaurya Mehta and Pradhyumna Narain.<br />© 2023 Ludus Interactive</footer>
