@@ -190,6 +190,8 @@
             -webkit-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
             background-color: #36393f;
+            padding: 1vw;
+            border: solid 1px;
         }
 
         .invisible {
@@ -201,8 +203,8 @@
             display: flex;
             justify-content: center;
             flex-direction: row;
-            width: 90%;
-            height: 90%;
+            width: 100%;
+            height: 100%;
         }
 
         .nav-popup-container-2 {
@@ -215,7 +217,7 @@
             background-color: #2f3136;
             text-align: center;
             width: 90vw;
-            height: 50vh;
+            height: 80vh;
             max-width: 800px;
             border: solid 1px #fff;
         }
@@ -242,6 +244,7 @@
             border-radius: 5px;
             transition: all 0.4s;
             cursor: pointer;
+            min-height: 50px;
         }
 
         .nav-option:hover {
@@ -279,13 +282,16 @@
         <h1>Delete my account</h1>
         <h4>Your details will be removed from your computer. Your AI profile will be deleted. This is permanent.
             Continue?</h4>
-        <button class="danger" onclick="deleteAccount()">Yes, delete</button>
+        <div class="deleteAccountBtnRow">
+            <button class="danger" onclick="deleteAccount()">Yes, delete</button>
+            <button onclick="$('#deleteAccountPopupCard')[0].classList.add('invisible')">No, I changed my mind</button>
+        </div>
     </div>
     <div class="container">
-        
-        <div class="titleCard">
-            <a class="menu-icon" onclick="nav.toggle()"><img
+        <a class="menu-icon" onclick="nav.toggle()"><img
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1024px-Hamburger_icon.svg.png"></a>
+        <div class="titleCard">
+
             <h1>Student Dashboard</h1>
             <hr>
         </div>
@@ -378,10 +384,16 @@
             });
         }
 
-        document.getElementsByTagName("body")[0].innerHTML = templateEngine(document.getElementsByTagName("body")[0]
-            .innerHTML, {
-                account: ludusAccount
-            });
+        function renderHTML() {
+            console.log("Rendering HTML with ");
+            console.log(ludusAccount);
+            $('.container')[0].innerHTML = templateEngine(document.getElementsByTagName("body")[0]
+                .innerHTML, {
+                    account: ludusAccount
+                });
+        }
+
+        renderHTML();
 
         if (!ludusAccount) {
             alert("Seems like your account was deleted. Redirecting to creation page...");
@@ -419,15 +431,18 @@
         }
 
         function updateData() {
+            console.log("Updating data to ")
             let inputs = $(".scsdInput input");
 
             ludusAccount.name = inputs[0].value;
-            ludusAccount.special_interests = inputs[2].value;
+            ludusAccount.special_interests = inputs[1].value;
+
+            console.log(ludusAccount);
 
             localStorage.setItem("ludusAccount", JSON.stringify(ludusAccount));
 
             $("#updateDataBtn")[0].classList.remove("pending");
-
+            location.reload();
         }
 
         let inputs = $(".scsdInput input");
