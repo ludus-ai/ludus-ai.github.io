@@ -108,7 +108,7 @@ h1 {
 }
 
 .invisible {
-    visibility: none;
+    visibility: hidden;
 }
 
 .nav-popup-container {
