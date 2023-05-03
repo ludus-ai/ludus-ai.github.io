@@ -415,6 +415,10 @@
 
         function deleteAccount() {
             localStorage.clear();
+            $('.popup button').each((i, element) => {element.classList.add('invisible')});
+            $('.popup h4')[0].innerText = "Successfully deleted account. Redirecting...";
+            
+            setTimeout(() => nav.goto("index"), 1000)
         }
 
         function getDaySegment() {
