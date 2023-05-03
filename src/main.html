@@ -15,10 +15,15 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"
 		integrity="sha512-zAs8dHhwlTbfcVGRX1x0EZAH/L99NjAFzX6muwOcOJc7dbGFNaW4O7b9QOyCMRYBNjO+E0Kx6yLDsiPQhhWm7g=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<script src="https://code.jquery.com/jquery-3.6.4.js"
+		integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 </head>
 
 <body>
 	<div class="container">
+		<a class="menu-icon" onclick="nav.toggle()"><img
+				src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1024px-Hamburger_icon.svg.png"></a>
 		<h1>Ludus AI</h1>
 		<div class="chat-box" id="chat-box"></div>
 		<form id="message-form">
@@ -34,7 +39,7 @@
 						</nav>
 						<hr>
 						<div class="nav-options vflexbox">
-							<a onclick="closeNavPopup()" class="vflexbox nav-option">Home</a>
+							<a onclick="nav.close()" class="vflexbox nav-option">Home</a>
 							<a onclick="nav.goto('dashboard')" class="nav-option vflexbox">Dashboard</a>
 						</div>
 					</div>
@@ -42,7 +47,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 
 	<script id="_wauzk9">
 		var _wau = _wau || [];
