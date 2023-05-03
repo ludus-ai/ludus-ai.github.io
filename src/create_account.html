@@ -107,7 +107,7 @@
 </head>
 
 <body>
-  <h1>Enter some details to use for this session.<span class="line"></span></h1>
+  <h1>Enter some details to use for your account.<span class="line"></span></h1>
   <form>
     <label for="name">Name:</label>
     <input type="text" name="name" id="name" required>
@@ -120,31 +120,30 @@
 
   <script defer>
     const btn = document.getElementById("btn");
-    const name = document.getElementById("name");
-    const interests = document.getElementById("interests");
-
-    if (localStorage.getItem("name")) {
-      name.value = localStorage.getItem("name")
-    }
-    if (localStorage.getItem("interests")) {
-      interests.value = localStorage.getItem("interests")
-    }
+    const nameInput = document.getElementById("name");
+    const interestsInput = document.getElementById("interests");
 
     function continueToMain(e) {
       e.preventDefault();
 
-
-      if (!name.value || !interests.value) {
-        name.placeholder = !name.value ? "Please enter a name for the AI to address you." : "";
-        interests.placeholder = !interests.value ? "Please enter some interests to personalise your conversation." : "";
+      if (!nameInput.value || !interestsInput.value) {
+        nameInput.placeholder = !nameInput.value ? "Please enter a name for the AI to address you." : "";
+        interestsInput.placeholder = !interestsInput.value ?
+          "Please enter some interests to personalise your conversation." : "";
 
         // TODO add a way for the user to enter their age, or maybe just some info on themselves
         return;
       }
-      localStorage.setItem('name', name.value);
-      localStorage.setItem('interests', interests.value);
 
-      console.log(localStorage.getItem('name'));
+      let ludusAccount = {
+        name: nameInput.value,
+        special_interests: interestsInput.value
+      }
+
+      localStorage.setItem("ludusAccount", JSON.stringify(ludusAccount));
+
+      console.log("Created new Ludus Account.");
+      console.log(localStorage.getItem("ludusAccount"));
 
       window.location = "main.html"
     }

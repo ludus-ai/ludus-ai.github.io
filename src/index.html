@@ -105,12 +105,29 @@
   <div class="container">
     <h1 class="title">Ludus AI<span class="line"></span></h1>
     <h2 class="subtitle">An interactive teacher for personalized education.</h2>
-    <a href="account.html" class="btn">Try the prototype</a>
+    <a href="#" onclick="proceedToAccount()" class="btn">Try the prototype</a>
     <a href="how_it_works.html" class="btn">Learn how it works</a>
   </div>
   <footer>
     <hr />Developed by Shaurya Mehta and Pradhyumna Narain.<br />© 2023 Ludus Interactive
   </footer>
+
+  <script>
+    function proceedToAccount() {
+      // If Ludus Account exists, take user to Main
+      // If not, take user to Account
+
+      let ludusAccount = localStorage.getItem("ludusAccount");
+
+      if (ludusAccount) {
+        // Account exists
+        window.location = 'main.html'
+      } else {
+        // Account does not exist
+        window.location = 'create_account.html';
+      }
+    }
+  </script>
 </body>
 
 </html>

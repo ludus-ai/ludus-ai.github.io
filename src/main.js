@@ -4,8 +4,12 @@ const inputText = document.getElementById("text-input");
 
 
 
-const userName = localStorage.getItem('name');
-const userInterests = localStorage.getItem('interests');
+let ludusAccount = JSON.parse(localStorage.getItem("ludusAccount"));
+
+// TODO check if ludusAccount is null, if so, redirect to account creation page.
+
+const userName = ludusAccount.name;
+const userInterests = ludusAccount.special_interests;
 
 const rateLimitedMessages = [
     "We're having some trouble keeping up with demand. Please try again in a bit.",
