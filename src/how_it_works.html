@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>How it Works - Ludus AI</title>
+	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--discord-blurple: #7289da;
+			--discord-dark: #36393f;
+			--discord-light: #fff;
+			--discord-grey: #99aab5;
+		}
+
+		body {
+			background-color: var(--discord-dark);
+			font-family: 'Poppins', sans-serif;
+			font-size: 16px;
+			color: var(--discord-light);
+			margin: 0;
+			padding: 0;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 50px 20px;
+		}
+
+		h1 {
+			font-size: 48px;
+			font-weight: 700;
+			color: var(--discord-light);
+			margin-top: 0;
+		}
+
+		h2 {
+			font-size: 36px;
+			font-weight: 600;
+			color: var(--discord-light);
+			margin-top: 0;
+		}
+
+		p {
+			font-size: 18px;
+			line-height: 1.5;
+			margin: 20px 0;
+		}
+
+		ol {
+			list-style: none;
+			counter-reset: my-counter;
+			margin: 20px 0;
+			padding: 0;
+		}
+
+		ol li {
+			counter-increment: my-counter;
+			margin: 10px 0;
+			padding-left: 30px;
+			position: relative;
+		}
+
+		ol li::before {
+			content: counter(my-counter);
+			position: absolute;
+			left: 0;
+			top: 0;
+			color: var(--discord-blurple);
+			font-weight: 600;
+			font-size: 24px;
+		}
+
+		button {
+			background-color: var(--discord-blurple);
+			color: var(--discord-light);
+			border: none;
+			padding: 10px 20px;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 16px;
+			font-weight: 600;
+			transition: background-color 0.2s ease-in-out;
+			margin-top: 30px;
+		}
+
+		button:hover {
+			background-color: #677bc4;
+		}
+
+        img {
+            border: solid 1px #677bc4
+        }
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>How it Works</h1>
+		<p>Ludus AI is an interactive teacher that uses the latest artificial intelligence technology to provide personalized education to its users. Here's how it works:</p>
+		<ol>
+			<li>Try the prototype.</li>
+			<li>Tell us about yourself and your interests.</li>
+			<li>Then just start talking! Your AI teacher will adapt based on your interests and also your grade, if you mention it.</li>
+			<li>Ask it for anything. Ludus AI is knowledgable on lots of subjects, and is designed specifically for students.</li>
+			<li>Learn at your own pace. Ask questions. Learn more. Repeat.</li>
+			<li>As you learn, the AI will adapt to your specific type of learning.</li>
+			<li>Use natural language. If you want to know something, ask it.</li>
+		</ol>
+        <img src="images/demo_intro.png">
+        <p>Introduce yourself to the AI.</p>
+        <img src="images/demo_talk.png">
+        <p>Then just talk!</p>
+		<a href="index.html"><button>Get Started</button></a>
+	</div>
+</body>
+</html>
