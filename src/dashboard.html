@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+    <title>Welcome to Ludus AI</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500&display=swap');
+    </style>
+
+    <style>
+        :root {
+            --color-background: #36393F;
+            --color-text: #FFF;
+            --color-primary: #7289DA;
+            --color-primary-dark: #677BC4;
+            --color-secondary: #B9BBBE;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Poppins, sans-serif;
+            background-color: #36393F;
+            color: #FFF;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+
+        .btn {
+            background-color: #7289DA;
+            color: #FFF;
+            font-size: 1rem;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+
+            margin-bottom: 25px;
+        }
+
+        .btn:hover {
+            background-color: #677BC4;
+        }
+
+        .titleCard {
+            position: sticky;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p {
+            font-family: Poppins, sans-serif;
+            font-weight: lighter;
+        }
+
+        .studentCard {
+            background-color: #36393f;
+            width: 70vw;
+            padding: 20px;
+            margin-top: 5vh;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .studentCard p {
+            font-family: Poppins, sans-serif;
+            font-weight: 100;
+        }
+
+        .scHeader {
+            display: flex;
+        }
+
+        .scHeader h2 {
+            justify-content: center;
+        }
+
+        .studentDetail {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .studentDetail h4 {
+            font-weight: normal;
+        }
+
+        .studentDetail .inputText {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            background-color: #40444b;
+            color: #fff;
+            border: solid 1px #fff;
+            outline: none;
+            text-align: center;
+            width: fit-content;
+            font-family: Poppins, sans-serif;
+            font-weight: 100;
+
+            width: 10vw;
+        }
+
+        .scsdInput {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .scBodyUpdateRow {
+            display: flex;
+            justify-content: right;
+            margin-top: 3vh;
+        }
+
+        .scBodyUpdateRow button {
+            background-color: #7289DA;
+            color: #FFF;
+            font-size: 0.9rem;
+            padding: 0.7rem;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+
+            margin-bottom: 25px;
+        }
+
+        button:hover {
+            background-color: #677BC4;
+        }
+
+        button {
+            background-color: #7289DA;
+            color: #FFF;
+            font-size: 0.9rem;
+            padding: 0.7rem;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        button.danger {
+            background-color: rgba(255, 0, 0, 0.664);
+        }
+
+        button.danger:hover {
+            background-color: rgb(255, 0, 0);
+        }
+
+        .popup {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            background-color: #36393f;
+        }
+
+        .invisible {
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="popup invisible" id="deleteAccountPopupCard">
+        <h1>Delete my account</h1>
+        <h4>Your details will be removed from your computer. Your AI profile will be deleted. This is permanent.
+            Continue?</h4>
+        <button class="danger" onclick="deleteAccount()">Yes, delete</button>
+    </div>
+    <div class="container">
+        <div class="titleCard">
+            <h1>Student Dashboard</h1>
+            <hr>
+        </div>
+        <div class="studentCard">
+            <div class="scHeader">
+                <h2>Hello,&nbsp;<h2 id="studentNameHeader">Pradhyumna.</h2>
+                </h2>
+            </div>
+            <div class="scBody">
+                <div class="scBodyHeader">
+                    <p>Please remember that this is pre-production, so UI/UX may change later.</p>
+                    <p>Welcome to your Dashboard. Here, you can view and customise all your data, and change your
+                        preferences as you like.</p>
+                </div>
+                <div class="scBodyStudentDetails">
+                    <div class="studentDetail">
+                        <h4>Your name</h4>
+                        <div class="scsdInput"><input type="text" class="inputText"></input></div>
+                    </div>
+                    <div class="studentDetail">
+                        <h4>Your syllabus (CBSE, ICSE, STATE)</h4>
+                        <div class="scsdInput"><input type="text" class="inputText"></input></div>
+                    </div>
+                    <div class="studentDetail">
+                        <h4>Your special interests</h4>
+                        <div class="scsdInput"><input type="text" class="inputText"></input></div>
+                    </div>
+                    <div class="studentDetail">
+                        <h4 style="font-weight: lighter">You are currently on our <b>Premium</b> tier. You have access
+                            to everything Ludus has to offer.</h4>
+                        <div class="scsdInput"><button>Cancel subscription</button></div>
+                    </div>
+
+                </div>
+                <div class="scBodyUpdateRow">
+                    <button>Update</button>
+                </div>
+                <hr>
+                <div class="scFooter">
+                    <h4>Since this is a prototype, accounts are temporary, and all details are stored on your computer.
+                        You may choose
+                        to delete all data stored and create a new account.
+                    </h4>
+                    <button class="danger" onclick="deleteAccountPopup()">Delete my account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const studentCard = document.getElementsByClassName("studentCard")[0];
+        const deleteAccountPopupCard = document.getElementById("deleteAccountPopupCard");
+
+        function hideElement(elem) {
+            elem.classList.add('invisible')
+        }
+
+        function showElement(elem) {
+            elem.classList.remove('invisible')
+        }
+
+        function deleteAccountPopup() {
+            hideElement(studentCard);
+            showElement(deleteAccountPopupCard);
+        }
+
+        function deleteAccount() {
+            localStorage.clear();
+        }
+
+        function getDaySegment() {
+            const date = new Date();
+            const hour = date.getHours();
+
+            if (hour < 12) {
+                return 'morning';
+            } else if (hour < 6) {
+                return 'afternoon';
+            } else if (hour < 24) {
+                return 'evening'
+            }
+        }
+    </script>
+</body>
+
+</html>
