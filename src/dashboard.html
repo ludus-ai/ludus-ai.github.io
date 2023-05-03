@@ -203,8 +203,12 @@
             display: flex;
             justify-content: center;
             flex-direction: row;
-            width: 100%;
-            height: 100%;
+            width: 90%;
+            height: 90%;
+        }
+
+        hr {
+            margin: 0;
         }
 
         .nav-popup-container-2 {
@@ -217,7 +221,7 @@
             background-color: #2f3136;
             text-align: center;
             width: 90vw;
-            height: 80vh;
+            height: fit-content;
             max-width: 800px;
             border: solid 1px #fff;
         }
@@ -415,9 +419,11 @@
 
         function deleteAccount() {
             localStorage.clear();
-            $('.popup button').each((i, element) => {element.classList.add('invisible')});
+            $('.popup button').each((i, element) => {
+                element.classList.add('invisible')
+            });
             $('.popup h4')[0].innerText = "Successfully deleted account. Redirecting...";
-            
+
             setTimeout(() => nav.goto("index"), 1000)
         }
 
