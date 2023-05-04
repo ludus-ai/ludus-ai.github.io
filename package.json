@@ -1,0 +1,56 @@
+{
+  "name": "ludus-ai",
+  "version": "1.1",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-android": " cd android && gradlew assembleDebug"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DarkWolf2244/LudusAI.git"
+  },
+  "author": "Shaurya Mehta, Pradhyumna Narain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DarkWolf2244/LudusAI/issues"
+  },
+  "homepage": "https://github.com/DarkWolf2244/LudusAI#readme",
+  "devDependencies": {
+    "@capacitor/cli": "^4.8.0",
+    "electron-builder": "^23.6.0"
+  },
+  "build": {
+    "appId": "ai.ludus",
+    "productName": "My App",
+    "target": "electron-builder:build",
+    "linux": {
+      "target": "deb"
+    },
+    "mac": {
+      "category": "your.app.category.type"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "extraFiles": [
+      {
+        "from": "src/res",
+        "to": "res",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "android": {
+      "package": "com.myapp",
+      "versionCode": 1,
+      "versionName": "1.0.0"
+    }
+  },
+  "dependencies": {
+    "@capacitor/android": "^4.8.0",
+    "@capacitor/core": "^4.8.0"
+  }
+}
