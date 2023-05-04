@@ -282,7 +282,6 @@ function sendUserMessage() {
 
     inputText.classList.add("pulse");
 
-    apiEngaged = true;
     generateResponse().then(data => {
         inputText.classList.remove("pulse");
         inputText.classList.add("pulse-back");
@@ -290,7 +289,6 @@ function sendUserMessage() {
 
         chatBox.removeChild(messageElementList.pop())
         addMessage(data, "assistant");
-        apiEngaged = false;
     });
 
     reportCounter += 1;
@@ -298,18 +296,25 @@ function sendUserMessage() {
     if (reportCounter >= 5) {
         reportCounter = 0;
 
-        setInterval(function retryStudentReport() {
-            if (apiEngaged) {
-                return;
-            }
-            apiEngaged = true;
-            generateStudentReport().then(() => {
-                apiEngaged = false
-                clearInterval(this);
-            });
-        }, 800);
+        generateStudentReport();
     }
 }
+
+const wait = ms => new Promise(r => setTimeout(r, ms));
+
+const retryOperation = (operation, delay, retries) => new Promise((resolve, reject) => {
+    return operation()
+        .then(resolve)
+        .catch((reason) => {
+            if (retries > 0) {
+                return wait(delay)
+                    .then(retryOperation.bind(null, operation, delay, retries - 1))
+                    .then(resolve)
+                    .catch(reject);
+            }
+            return reject(reason);
+        });
+});
 
 function generateStudentReport() {
     return new Promise((resolve, reject) => {
@@ -317,12 +322,13 @@ function generateStudentReport() {
             role: 'system',
             content: studentReportPrompt
         });
-        generateResponse().then(data => {
-            ludusAccount.report = data;
-            localStorage.setItem("ludusAccount", JSON.stringify(ludusAccount));
-            resolve();
-        });
-    })
+
+        retryOperation(() => queryModelAPI(messageList, 0.4), 1000, 10)
+            .then(response => {
+                ludusAccount.report = response;
+                localStorage.setItem('ludusAccount', JSON.stringify(ludusAccount));
+            })
+    });
 
 }
 
@@ -342,7 +348,10 @@ function generateResponse() {
             systemMessageCounter += 1;
         }
 
-        queryModelAPI()
+        let query = queryModelAPI();
+        console.log(query);
+
+        query
             .then(data => {
                 let response = marked.marked(data);
                 resolve(response);
@@ -358,6 +367,14 @@ function generateResponse() {
 }
 
 function queryModelAPI(messages = messageList, temperature = 0.6) {
+    if (apiEngaged) {
+        return new Promise((resolve, reject) => {
+            reject({reason: "API engaged."});
+        });
+    } else {
+        apiEngaged = true;
+    }
+
     return new Promise((resolve, reject) => {
         fetch(
                 "https://api.openai.com/v1/chat/completions", {
@@ -381,12 +398,14 @@ function queryModelAPI(messages = messageList, temperature = 0.6) {
                 if (data.error) {
                     // Welp that's an official OpenAI error
                     if (data.error.message.includes("rate")) {
+                        apiEngaged = false;
                         reject({
                             reason: 'rate_limit'
                         });
                     }
-                    
+
                     if (data.error.type == "invalid_request_error") {
+                        apiEngaged = false;
                         reject({
                             reason: 'bad_request'
                         });
@@ -396,6 +415,7 @@ function queryModelAPI(messages = messageList, temperature = 0.6) {
                 }
 
                 let finalResponse = data.choices[0].message.content;
+                apiEngaged = false;
                 resolve(finalResponse)
             })
     });
