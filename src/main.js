@@ -293,18 +293,22 @@ function sendUserMessage() {
         apiEngaged = false;
     });
 
-    // reportCounter += 1;
+    reportCounter += 1;
 
-    // if (reportCounter >= 5) {
-    //     reportCounter = 0;
+    if (reportCounter >= 5) {
+        reportCounter = 0;
 
-    //     setInterval(function retryStudentReport() {
-    //         if (apiEngaged) {return;}
-    //         apiEngaged = true;
-    //         generateStudentReport().then(() => apiEngaged = false)
-    //         clearInterval(this);
-    //     }, 800);
-    // }
+        setInterval(function retryStudentReport() {
+            if (apiEngaged) {
+                return;
+            }
+            apiEngaged = true;
+            generateStudentReport().then(() => {
+                apiEngaged = false
+                clearInterval(this);
+            });
+        }, 800);
+    }
 }
 
 function generateStudentReport() {
@@ -323,21 +327,6 @@ function generateStudentReport() {
 }
 
 function generateResponse() {
-    // return new Promise((resolve, reject) => {
-    // 	fetch('https://api.quotable.io/random')
-    // 		.then(response => response.json())
-    // 		.then(data => {
-    // 			resolve(data.content);
-    // 		})
-    // 	});
-
-    console.log("Generating a response...");
-
-
-    return query(compileMessageList())
-}
-
-function query(data, temp=0.6) {
     console.log("Querying OpenAI API...");
 
     return new Promise((resolve, reject) => {
@@ -353,8 +342,23 @@ function query(data, temp=0.6) {
             systemMessageCounter += 1;
         }
 
+        queryModelAPI()
+            .then(data => {
+                let response = marked.marked(data);
+                resolve(response);
+            })
+            .catch(data => {
+                if (data.reason == 'rate_limit') {
+                    resolve(chooseRandomElement(rateLimitedMessages));
+                } else if (data.reason == 'bad_request') {
+                    resolve("We've hit a problem, and we can't currently talk to the AI right now. Please email feedback.ludusai@outlook.com about this.");
+                }
+            })
+    });
+}
 
-
+function queryModelAPI(messages = messageList, temperature = 0.6) {
+    return new Promise((resolve, reject) => {
         fetch(
                 "https://api.openai.com/v1/chat/completions", {
                     headers: {
@@ -364,38 +368,39 @@ function query(data, temp=0.6) {
                     method: "POST",
                     body: JSON.stringify({
                         "model": "gpt-3.5-turbo",
-                        "messages": messageList,
-                        "temperature": temp,
+                        "messages": messages,
+                        "temperature": temperature,
                     })
                 }
             )
-            .then(res => {
-                console.log("Recieved response, which is: ");
-                console.log(res);
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
 
-                res = res.json();
-                res.then(res => {
-                    console.log("JSONified:");
-                    console.log(res);
-
-                    if (res.error) {
-                        resolve(chooseRandomElement(rateLimitedMessages));
-                        return;
+                // Testing for errors
+                if (data.error) {
+                    // Welp that's an official OpenAI error
+                    if (data.error.message.includes("rate")) {
+                        reject({
+                            reason: 'rate_limit'
+                        });
+                    }
+                    
+                    if (data.error.type == "invalid_request_error") {
+                        reject({
+                            reason: 'bad_request'
+                        });
                     }
 
-                    console.log("Generated text: ");
+                    return;
+                }
 
-                    let finalResponse = res.choices[0].message.content;
-
-                    finalResponse = marked.marked(finalResponse);
-
-                    resolve(finalResponse)
-                });
-
+                let finalResponse = data.choices[0].message.content;
+                resolve(finalResponse)
             })
     });
-
 }
+
 
 function pulseRed(elem) {
     elem.classList.add("pulse-red");
