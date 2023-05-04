@@ -161,13 +161,13 @@ Steps to generate student report:
 2. Try to learn their personality.
 3. If there is not enough data, do not make up information. Just say 'Not enough data.'.
 4. Compile this report into a clean paragraph that looks like the example delimited by triple backticks.
-
+5. Do not provide anything else in your response. Wrap it in <p></p> tags.
 Example:
 \`\`\`
-Strengths: [student] is highly skilled at trigonometry, and can grasp concepts with ease. They are able to absorb and memorise information well.
-Weaknesses: [student] tends to make mistakes under pressure, and sometimes makes simple calculation errors.
-Suggestions: [student] would fare well to practice simpler operations every day to build up their skills.
-Conclusion: [student] is very smart, and has a lot of potential. They just need to practice a bit more.
+[student] is highly skilled at trigonometry, and can grasp concepts with ease. They are able to absorb and memorise information well. [student], however \
+tends to make mistakes under pressure, and sometimes makes simple calculation errors.
+
+[student] would fare well to practice simpler operations every day to build up their skills. [student] is very smart, and has a lot of potential. They just need to practice a bit more.
 \`\`\`
 `
 const promptSummaryToUse = ludusPromptV2Summary
