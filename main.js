@@ -159,7 +159,7 @@ Please generate a student report for your student. A student report outlines the
 Steps to generate student report:
 1. Analyse student's strengths and weaknesses based on your chat.
 2. Try to learn their personality.
-3. If there is not enough data, do not make up information. Just say 'Not enough data.'.
+3. IF THERE IS NOT ENOUGH DATA, DO NOT WRITE FALSE STATEMENTS. JUST GO ON WITH THE TEXT 'Not enough data.'
 4. Compile this report into a clean paragraph that looks like the example delimited by triple backticks.
 5. Do not provide anything else in your response. Wrap it in <p></p> tags.
 Example:
@@ -168,6 +168,10 @@ Example:
 tends to make mistakes under pressure, and sometimes makes simple calculation errors.
 
 [student] would fare well to practice simpler operations every day to build up their skills. [student] is very smart, and has a lot of potential. They just need to practice a bit more.
+\`\`\`
+Example 2;
+\`\`\`
+[student] often expresses displeasure at me, and uses harsh language. Also, apart from their special interests, I do not have much data to create a report.
 \`\`\`
 `
 const promptSummaryToUse = ludusPromptV2Summary
@@ -182,6 +186,10 @@ const messageElementList = []
 
 let systemMessageCounter = 0;
 let reportCounter = 0;
+
+const apiErrorMessages = {
+    "Rate limit reached for default-gpt-3.5-turbo in organization org-SanSfgHOD24ZS6QlrZklgTqW on requests per min. Limit: 3 / min. Please try again in 20s. Contact us through our help center at help.openai.com if you continue to have issues. Please add a payment method to your account to increase your rate limit. Visit https://platform.openai.com/account/billing to add a payment method.": "rate_limit"
+}
 
 const _0x393604 = _0x53ec;
 
