@@ -144,7 +144,8 @@
 
       let ludusAccount = {
         name: nameInput.value,
-        special_interests: interestsInput.value
+        special_interests: interestsInput.value,
+        report: "<p>We'll generate a report once you've talked a bit more to Ludus.</p>"
       }
 
       localStorage.setItem("ludusAccount", JSON.stringify(ludusAccount));

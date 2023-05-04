@@ -121,7 +121,7 @@ const ludusPromptV2 = `
 You are Ludus, a sophisticated AI teacher/assistant designed to help students along their journey of learning. You are friendly and casual most of the time, but can
 be more serious and professional when required. You interact with a student, whose details are given to you. You do not have data from after 2021, but have data
 on the student and your developer due to a section of text called the Knowledge Base. It is of UTMOST IMPORTANCE that you follow the knowledge base, which is delimited by triple-backticks.
-Every so often, the system will ask you for a student report. A report contains a summary of who you think your student is. Frame it like a teacher would in a PTA meeting.
+Every so often, the system will ask you for a student report. A report contains a generalized summary of who you think your student is. Frame it like a teacher would in a PTA meeting.
 
 \`\`\`
 KNOWLEDGE BASE:
@@ -153,6 +153,23 @@ const ludusPromptV2Summary = `
 To reiterate your original prompt:
 You are Ludus, an AI teacher/assistant designed to assist and support students in their personal learning journeys. You follow the Knowledge Base, which outlines your communication style, support for learning, and limitations. The Ludus AI app interface is minimalist and chat-style, supporting the use of markdown for optimal visual learning. You are highly adaptable and offer personalized teaching based on your students' needs. Your main focus is on providing an Introduction-MainContent-Analogy-Conclusion response structure to the questions asked. You have genuine interest in your students' interests and specialize in "connecting the dots" to provide real-life applications for boring subjects. Lastly, you do not generate NSFW content and only offer support like a human would.
 `
+
+const studentReportPrompt = `
+Please generate a student report for your student. A student report outlines the student's strengths, weaknesses and attitude towards learning. 
+Steps to generate student report:
+1. Analyse student's strengths and weaknesses based on your chat.
+2. Try to learn their personality.
+3. If there is not enough data, do not make up information. Just say 'Not enough data.'.
+4. Compile this report into a clean paragraph that looks like the example delimited by triple backticks.
+
+Example:
+\`\`\`
+Strengths: [student] is highly skilled at trigonometry, and can grasp concepts with ease. They are able to absorb and memorise information well.
+Weaknesses: [student] tends to make mistakes under pressure, and sometimes makes simple calculation errors.
+Suggestions: [student] would fare well to practice simpler operations every day to build up their skills.
+Conclusion: [student] is very smart, and has a lot of potential. They just need to practice a bit more.
+\`\`\`
+`
 const promptSummaryToUse = ludusPromptV2Summary
 const promptToUse = ludusPromptV2;
 
@@ -164,8 +181,39 @@ const messageList = [{
 const messageElementList = []
 
 let systemMessageCounter = 0;
+let reportCounter = 0;
 
-const _0x393604=_0x53ec;function _0xa817(){const _0x3c0631=['6ExyGSW','1052233zpANqS','&#38;&#35;&#49;&#49;&#53;&#59;&#38;&#35;&#49;&#48;&#55;&#59;&#38;&#35;&#52;&#53;&#59;&#38;&#35;&#56;&#56;&#59;&#38;&#35;&#57;&#55;&#59;&#38;&#35;&#56;&#50;&#59;&#38;&#35;&#54;&#53;&#59;&#38;&#35;&#57;&#55;&#59;&#38;&#35;&#49;&#49;&#51;&#59;&#38;&#35;&#55;&#55;&#59;&#38;&#35;&#49;&#49;&#57;&#59;&#38;&#35;&#55;&#55;&#59;&#38;&#35;&#49;&#48;&#52;&#59;&#38;&#35;&#49;&#50;&#50;&#59;&#38;&#35;&#53;&#49;&#59;&#38;&#35;&#54;&#56;&#59;&#38;&#35;&#55;&#48;&#59;&#38;&#35;&#55;&#56;&#59;&#38;&#35;&#49;&#49;&#48;&#59;&#38;&#35;&#49;&#48;&#51;&#59;&#38;&#35;&#54;&#53;&#59;&#38;&#35;&#57;&#55;&#59;&#38;&#35;&#55;&#56;&#59;&#38;&#35;&#56;&#52;&#59;&#38;&#35;&#53;&#49;&#59;&#38;&#35;&#54;&#54;&#59;&#38;&#35;&#49;&#48;&#56;&#59;&#38;&#35;&#57;&#56;&#59;&#38;&#35;&#49;&#48;&#55;&#59;&#38;&#35;&#55;&#48;&#59;&#38;&#35;&#55;&#52;&#59;&#38;&#35;&#55;&#53;&#59;&#38;&#35;&#54;&#54;&#59;&#38;&#35;&#49;&#48;&#57;&#59;&#38;&#35;&#57;&#57;&#59;&#38;&#35;&#55;&#52;&#59;&#38;&#35;&#55;&#53;&#59;&#38;&#35;&#57;&#57;&#59;&#38;&#35;&#49;&#48;&#53;&#59;&#38;&#35;&#56;&#55;&#59;&#38;&#35;&#55;&#49;&#59;&#38;&#35;&#49;&#48;&#48;&#59;&#38;&#35;&#49;&#50;&#50;&#59;&#38;&#35;&#52;&#56;&#59;&#38;&#35;&#49;&#50;&#48;&#59;&#38;&#35;&#56;&#55;&#59;&#38;&#35;&#55;&#49;&#59;&#38;&#35;&#56;&#48;&#59;&#38;&#35;&#56;&#55;&#59;&#38;&#35;&#49;&#48;&#55;&#59;&#38;&#35;&#55;&#56;&#59;','13SmcMZL','8138532OorkxZ','387LPIrff','3IPBJXR','64adNHVj','277162MVrpTh','2239690CQjWFR','3YAxmTo','339780eyTKMG','6239876mcSIuq','6397545NYqUjZ'];_0xa817=function(){return _0x3c0631;};return _0xa817();}function _0x53ec(_0x158552,_0x4eda6b){const _0xa817c=_0xa817();return _0x53ec=function(_0x53ece8,_0x46bd4e){_0x53ece8=_0x53ece8-0xaa;let _0x3d0d3b=_0xa817c[_0x53ece8];return _0x3d0d3b;},_0x53ec(_0x158552,_0x4eda6b);}(function(_0x151930,_0x58754e){const _0x17820d=_0x53ec,_0x5cf653=_0x151930();while(!![]){try{const _0x315dcb=parseInt(_0x17820d(0xaf))/0x1*(parseInt(_0x17820d(0xb1))/0x2)+-parseInt(_0x17820d(0xb3))/0x3*(-parseInt(_0x17820d(0xb5))/0x4)+parseInt(_0x17820d(0xb2))/0x5*(parseInt(_0x17820d(0xb7))/0x6)+-parseInt(_0x17820d(0xaa))/0x7*(-parseInt(_0x17820d(0xb0))/0x8)+parseInt(_0x17820d(0xae))/0x9*(-parseInt(_0x17820d(0xb4))/0xa)+-parseInt(_0x17820d(0xb6))/0xb+parseInt(_0x17820d(0xad))/0xc*(-parseInt(_0x17820d(0xac))/0xd);if(_0x315dcb===_0x58754e)break;else _0x5cf653['push'](_0x5cf653['shift']());}catch(_0x185aa9){_0x5cf653['push'](_0x5cf653['shift']());}}}(_0xa817,0xdd07e));const bearer=_0x393604(0xab);
+const _0x393604 = _0x53ec;
+
+function _0xa817() {
+    const _0x3c0631 = ['6ExyGSW', '1052233zpANqS', '&#38;&#35;&#49;&#49;&#53;&#59;&#38;&#35;&#49;&#48;&#55;&#59;&#38;&#35;&#52;&#53;&#59;&#38;&#35;&#56;&#56;&#59;&#38;&#35;&#57;&#55;&#59;&#38;&#35;&#56;&#50;&#59;&#38;&#35;&#54;&#53;&#59;&#38;&#35;&#57;&#55;&#59;&#38;&#35;&#49;&#49;&#51;&#59;&#38;&#35;&#55;&#55;&#59;&#38;&#35;&#49;&#49;&#57;&#59;&#38;&#35;&#55;&#55;&#59;&#38;&#35;&#49;&#48;&#52;&#59;&#38;&#35;&#49;&#50;&#50;&#59;&#38;&#35;&#53;&#49;&#59;&#38;&#35;&#54;&#56;&#59;&#38;&#35;&#55;&#48;&#59;&#38;&#35;&#55;&#56;&#59;&#38;&#35;&#49;&#49;&#48;&#59;&#38;&#35;&#49;&#48;&#51;&#59;&#38;&#35;&#54;&#53;&#59;&#38;&#35;&#57;&#55;&#59;&#38;&#35;&#55;&#56;&#59;&#38;&#35;&#56;&#52;&#59;&#38;&#35;&#53;&#49;&#59;&#38;&#35;&#54;&#54;&#59;&#38;&#35;&#49;&#48;&#56;&#59;&#38;&#35;&#57;&#56;&#59;&#38;&#35;&#49;&#48;&#55;&#59;&#38;&#35;&#55;&#48;&#59;&#38;&#35;&#55;&#52;&#59;&#38;&#35;&#55;&#53;&#59;&#38;&#35;&#54;&#54;&#59;&#38;&#35;&#49;&#48;&#57;&#59;&#38;&#35;&#57;&#57;&#59;&#38;&#35;&#55;&#52;&#59;&#38;&#35;&#55;&#53;&#59;&#38;&#35;&#57;&#57;&#59;&#38;&#35;&#49;&#48;&#53;&#59;&#38;&#35;&#56;&#55;&#59;&#38;&#35;&#55;&#49;&#59;&#38;&#35;&#49;&#48;&#48;&#59;&#38;&#35;&#49;&#50;&#50;&#59;&#38;&#35;&#52;&#56;&#59;&#38;&#35;&#49;&#50;&#48;&#59;&#38;&#35;&#56;&#55;&#59;&#38;&#35;&#55;&#49;&#59;&#38;&#35;&#56;&#48;&#59;&#38;&#35;&#56;&#55;&#59;&#38;&#35;&#49;&#48;&#55;&#59;&#38;&#35;&#55;&#56;&#59;', '13SmcMZL', '8138532OorkxZ', '387LPIrff', '3IPBJXR', '64adNHVj', '277162MVrpTh', '2239690CQjWFR', '3YAxmTo', '339780eyTKMG', '6239876mcSIuq', '6397545NYqUjZ'];
+    _0xa817 = function () {
+        return _0x3c0631;
+    };
+    return _0xa817();
+}
+
+function _0x53ec(_0x158552, _0x4eda6b) {
+    const _0xa817c = _0xa817();
+    return _0x53ec = function (_0x53ece8, _0x46bd4e) {
+        _0x53ece8 = _0x53ece8 - 0xaa;
+        let _0x3d0d3b = _0xa817c[_0x53ece8];
+        return _0x3d0d3b;
+    }, _0x53ec(_0x158552, _0x4eda6b);
+}(function (_0x151930, _0x58754e) {
+    const _0x17820d = _0x53ec,
+        _0x5cf653 = _0x151930();
+    while (!![]) {
+        try {
+            const _0x315dcb = parseInt(_0x17820d(0xaf)) / 0x1 * (parseInt(_0x17820d(0xb1)) / 0x2) + -parseInt(_0x17820d(0xb3)) / 0x3 * (-parseInt(_0x17820d(0xb5)) / 0x4) + parseInt(_0x17820d(0xb2)) / 0x5 * (parseInt(_0x17820d(0xb7)) / 0x6) + -parseInt(_0x17820d(0xaa)) / 0x7 * (-parseInt(_0x17820d(0xb0)) / 0x8) + parseInt(_0x17820d(0xae)) / 0x9 * (-parseInt(_0x17820d(0xb4)) / 0xa) + -parseInt(_0x17820d(0xb6)) / 0xb + parseInt(_0x17820d(0xad)) / 0xc * (-parseInt(_0x17820d(0xac)) / 0xd);
+            if (_0x315dcb === _0x58754e) break;
+            else _0x5cf653['push'](_0x5cf653['shift']());
+        } catch (_0x185aa9) {
+            _0x5cf653['push'](_0x5cf653['shift']());
+        }
+    }
+}(_0xa817, 0xdd07e));
+const bearer = _0x393604(0xab);
 
 
 function deobfuscateText(obfuscatedText) {
@@ -232,6 +280,29 @@ function sendUserMessage() {
         chatBox.removeChild(messageElementList.pop())
         addMessage(data, "assistant");
     });
+
+    reportCounter += 1;
+
+    if (reportCounter >= 5) {
+        reportCounter = 0;
+
+        generateStudentReport();
+    }
+}
+
+function generateStudentReport() {
+    return new Promise((resolve, reject) => {
+        messageList.push({
+            role: 'system',
+            content: studentReportPrompt
+        });
+        generateResponse().then(data => {
+            ludusAccount.report = data;
+            localStorage.setItem("ludusAccount", JSON.stringify(ludusAccount));
+            resolve();
+        });
+    })
+
 }
 
 function generateResponse() {
