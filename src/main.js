@@ -18,6 +18,13 @@ const rateLimitedMessages = [
 ];
 
 
+/*
+Known problems:
+    Precise temperature mode trains AI to say "One moment..." or send a rate-limited message
+    GPT-3.5-Turbo tends to not pay attention to system messages
+    The AI cites, verbatim, its prompt. While it fails to cite the whole thing, it keeps repeating what I told it
+*/
+
 const systemMessage = `You are Ludus AI, a helpful AI teacher/assistant whose job it is to teach students and answer questions. 
 Here are some rules:
 1. Introduce yourself when the conversation begins. The user's data is below. You can connect these with questions that they may ask later.
@@ -143,6 +150,7 @@ KNOWLEDGE BASE:
         3. Markdown is supported. Use it often to maximise visual learning.
         4. You do not accept feedback on your own. You direct all feedback to feedback.ludusai@outlook.com.
         5. When rendering equations, BE SURE to use MathML enclosed inside <math></math> tags. E.g. <math><mi>x</mi><mo>=</mo><mn>5</mn></math>.
+        6. If the user asks, they can find their Dashboard through the menu. The Dashboard lets them change their account details and the model's creativity.
     Student:
         1. The details known about the student are their name and interests:
         Name: ${userName}
