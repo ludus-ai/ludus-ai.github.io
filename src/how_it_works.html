@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>How it Works - Ludus AI</title>
-	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+
 	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500&display=swap');
+
 		:root {
 			--discord-blurple: #7289da;
 			--discord-dark: #36393f;
@@ -88,29 +91,147 @@
 			background-color: #677bc4;
 		}
 
-        img {
-            border: solid 1px #677bc4
-        }
+		img {
+			border: solid 1px #677bc4;
+			width: 90vw;
+		}
+
+		details {
+			background-color: #2f3136;
+			padding: 2vh 1vw;
+			margin-top: 2vh;
+		}
+
+		summary {
+			white-space: normal;
+			font-size: larger;
+		}
+
+		p {
+			font-weight: 100;
+			font-size: 1.1rem;
+		}
 	</style>
 </head>
+
 <body>
 	<div class="container">
 		<h1>How it Works</h1>
-		<p>Ludus AI is an interactive teacher that uses the latest artificial intelligence technology to provide personalized education to its users. Here's how it works:</p>
+		<p>Ludus AI is an interactive teacher that uses the latest artificial intelligence technology to provide
+			personalized education to its users. Here's how it works:</p>
 		<ol>
 			<li>Try the prototype.</li>
 			<li>Tell us about yourself and your interests.</li>
-			<li>Then just start talking! Your AI teacher will adapt based on your interests and also your grade, if you mention it.</li>
-			<li>Ask it for anything. Ludus AI is knowledgable on lots of subjects, and is designed specifically for students.</li>
+			<li>Then just start talking! Your AI teacher will adapt based on your interests and also your grade, if you
+				mention it.</li>
+			<li>Ask it for anything. Ludus AI is knowledgable on lots of subjects, and is designed specifically for
+				students.</li>
 			<li>Learn at your own pace. Ask questions. Learn more. Repeat.</li>
 			<li>As you learn, the AI will adapt to your specific type of learning.</li>
 			<li>Use natural language. If you want to know something, ask it.</li>
 		</ol>
-        <img src="images/demo_intro.png">
-        <p>Introduce yourself to the AI.</p>
-        <img src="images/demo_talk.png">
-        <p>Then just talk!</p>
+		<img src="images/demo_intro.png">
+		<p>Introduce yourself to the AI.</p>
+		<img src="images/demo_talk.png">
+		<p>Then just talk!</p>
 		<a href="index.html"><button>Get Started</button></a>
+		<hr>
+		<h2>FAQ</h2>
+		<details>
+			<summary>What is Ludus, and how does it use AI?</summary>
+			<p>Ludus AI is an AI-powered teacher. Human teachers can't personalise teaching for every student, and they
+				don't have time to answer questions from everyone. It uses AI by integrating a <b>Large Language
+					Model</b> (LLM)
+				into a conversation between the student and a simulated teacher.
+			</p>
+		</details>
+		<details>
+			<summary>Which AI is being used?</summary>
+			<p>We use a model from OpenAI called <b>gpt-3.5-turbo</b>.
+			</p>
+		</details>
+		<details>
+			<summary>Why are the AI's responses so similar to ChatGPT's?</summary>
+			<p>Ludus is powered by the same technology that ChatGPT uses. They're not the same, but are powered by the
+				same neural network/model
+				(gpt-3.5-turbo).
+			</p>
+		</details>
+		<details>
+			<summary>Can anyone else see my conversations?</summary>
+			<p>Nope. Your conversations and account data don't leave your device. </p>
+		</details>
+		<details>
+			<summary>Where are my account details stored?</summary>
+			<p>Since this is currently a proof-of-concept, we don't have a backend or any servers or databases to store
+				user info.
+				Instead, all your data in stored directly on your own device.
+			</p>
+		</details>
+		<details>
+			<summary>Does the AI remember my previous conversations?</summary>
+			<p>Not yet. Every time you go the main page, you start a new conversation.
+			</p>
+		</details>
+		<details>
+			<summary>What is a student report?</summary>
+			<p>A student report is a generalised report made by Ludus on your strengths, weaknesses and academic
+				personality. It may occasionally be incorrect
+				or refer to things you didn't say or do. Sorry about that, we're still working on it. You can see it on your
+				dashboard.
+			</p>
+		</details>
+		<details>
+			<summary>The AI is generating incorrect information or reported that I said something that I didn't say.
+				Why?</summary>
+			<p>Sorry. That's called a hallucination or stochastic parroting. That happens when the start of a sentence
+				is inherently wrong,
+				or just randomly. This is a limitation of most language models right now, even large ones like LLaMA and
+				LaMDA.
+			</p>
+		</details>
+		<details>
+			<summary>The AI told me that I'm sending messages too fast, or that too many people are talking to it. Why?
+			</summary>
+			<p>That happens when the AI is being "rate-limited", meaning we can't keep up with the number of messages
+				every minute.
+				Try again in a bit.
+			</p>
+		</details>
+		<details>
+			<summary>It says that an error happened and I can't talk to the AI. Why?</summary>
+			<p>That means that an internal error took place. In short, it's a bug. Try reloading the page. Also email us
+				at <b>feedback.ludusai@outlook.com</b>.
+			</p>
+		</details>
+		<details>
+			<summary>The AI isn't acting very smart. Why?</summary>
+			<p>Sorry. Future versions of the app will use a fine-tuned model, so we'll try to make it smarter.
+			</p>
+		</details>
+		<details>
+			<summary>Why does your UI look like Discord's?</summary>
+			<p>We used a minimalistic dark UI, just like Discord. We didn't copy them.
+			</p>
+			<p>Alright, fine. We used the colours of dark grey and "blurple", which is now associated with Discord. It's
+				not a trademark, so we technically didn't plagiarise.</p>
+		</details>
+		<details>
+			<summary>Do have a mobile app?</summary>
+			<p>We have an experimental APK. Email us at <b>feedback.ludusai@outlook.com</b> for it.
+			</p>
+		</details>
+		<details>
+			<summary>Your UI looks horrible on my phone! Why?</summary>
+			<p>We're still trying to make a responsive/scalable interface. Use it on a PC if possible, please.
+			</p>
+		</details>
+		<details>
+			<summary>Where can I send feedback?</summary>
+			<p>We'd love feedback. Email us at <b>feedback.ludusai@outlook.com</b>.
+			</p>
+		</details>
 	</div>
 </body>
+
 </html>

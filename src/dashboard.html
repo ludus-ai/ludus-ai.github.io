@@ -282,10 +282,17 @@
         .scBodyReport {
             margin-top: 3vh;
         }
+
         .studentReport {
             background-color: #2f3136;
             padding: 10px;
             word-wrap: normal;
+        }
+
+        .tempRow {
+            display: flex;
+            justify-content: space-evenly;
+            margin: 2vh 0;
         }
     </style>
 </head>
@@ -342,6 +349,19 @@
                 </div>
                 <div class="scBodyUpdateRow">
                     <button id="updateDataBtn" onclick="updateData()">Update</button>
+                </div>
+                <hr>
+                <div class="scBodyTempSetting">
+                    <h2>Creativity and Predictability</h2>
+                    <p>The AI can be really creative (while also being a little unpredictable) in its answers, or it can be more precise and also more repetitive.
+                        Here, you can change this setting.
+                    </p>
+                    <div class="tempRow">
+                        <button onclick="setAccountTemperature(0.2)">Predictable</button>
+                        <button onclick="setAccountTemperature(0.5)">Balanced</button>
+                        <button onclick="setAccountTemperature(0.8)">Creative</button>
+                    </div>
+                    <p>Your AI is will be ##account.temperatureFriendlyDescription##.</p>
                 </div>
                 <hr>
                 <div class="scBodyReport">
@@ -471,6 +491,20 @@
             location.reload();
         }
 
+        function setAccountTemperature(temp) {
+            ludusAccount.temperature = temp;
+
+            if (temp == 0.2) {
+                ludusAccount.temperatureFriendlyDescription = "a little more predictable, and also a bit more precise";
+            } else if (temp == 0.5) {
+                ludusAccount.temperatureFriendlyDescription = "balanced in its answers";
+            } else if (temp == 0.8) {
+                ludusAccount.temperatureFriendlyDescription = "creative and less predictable, but may be a little less precise.";
+            }
+
+            localStorage.setItem("ludusAccount", JSON.stringify(ludusAccount));
+            location.reload();
+        }
         let inputs = $(".scsdInput input");
         let inputMap = ['name', 'special_interests'];
 

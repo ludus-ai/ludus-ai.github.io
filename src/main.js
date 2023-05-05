@@ -368,7 +368,7 @@ function generateResponse(msgList = messageList) {
     });
 }
 
-function queryModelAPI(messages = messageList, temperature = 0.5) {
+function queryModelAPI(messages = messageList, temperature = ludusAccount.temperature) {
     if (apiEngaged) {
         return new Promise((resolve, reject) => {
             reject({reason: "API engaged."});
