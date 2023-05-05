@@ -1,3 +1,7 @@
 ludus-ai/node-modules
 node_modules
 AI
+ludus-ai-main.keystore
+ludus-ai.keystore
+
+resources/android/**/*
