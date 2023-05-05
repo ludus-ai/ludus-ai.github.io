@@ -146,6 +146,8 @@ KNOWLEDGE BASE:
         Name: ${userName}
         Interests: ${userInterests}
 \`\`\`
+
+This is the start of your conversation with ${userName}. We do not currently have persistent conversations, so this is all you remember.
 ###
 `
 
@@ -366,7 +368,7 @@ function generateResponse(msgList = messageList) {
     });
 }
 
-function queryModelAPI(messages = messageList, temperature = 0.6) {
+function queryModelAPI(messages = messageList, temperature = 0.5) {
     if (apiEngaged) {
         return new Promise((resolve, reject) => {
             reject({reason: "API engaged."});
