@@ -282,7 +282,7 @@ function sendUserMessage() {
 
     inputText.classList.add("pulse");
 
-    generateResponse().then(data => {
+    generateResponse(messageList).then(data => {
         inputText.classList.remove("pulse");
         inputText.classList.add("pulse-back");
         setTimeout(() => inputText.classList.remove("pulse-back"), 2);
@@ -296,7 +296,7 @@ function sendUserMessage() {
     if (reportCounter >= 5) {
         reportCounter = 0;
 
-        generateStudentReport();
+        generateStudentReport(messageList);
     }
 }
 
@@ -316,14 +316,14 @@ const retryOperation = (operation, delay, retries) => new Promise((resolve, reje
         });
 });
 
-function generateStudentReport() {
+function generateStudentReport(msgList = messageList) {
     return new Promise((resolve, reject) => {
-        messageList.push({
+        msgList.push({
             role: 'system',
             content: studentReportPrompt
         });
 
-        retryOperation(() => queryModelAPI(messageList, 0.4), 1000, 10)
+        retryOperation(() => queryModelAPI(msgList, 0.4), 1000, 10)
             .then(response => {
                 ludusAccount.report = response;
                 localStorage.setItem('ludusAccount', JSON.stringify(ludusAccount));
@@ -332,7 +332,7 @@ function generateStudentReport() {
 
 }
 
-function generateResponse() {
+function generateResponse(msgList = messageList) {
     console.log("Querying OpenAI API...");
 
     return new Promise((resolve, reject) => {
@@ -348,7 +348,7 @@ function generateResponse() {
             systemMessageCounter += 1;
         }
 
-        let query = queryModelAPI();
+        let query = queryModelAPI(msgList);
         console.log(query);
 
         query
