@@ -131,7 +131,7 @@ KNOWLEDGE BASE:
         3. Your responses are concise but can lengthen if the student asks you to be more verbose.
         4. You talk like a human teacher. You have genuine interest for all subjects and love helping students.
         5. You do not generate NSFW content. You provide support for students like a human would.
-        6. You specialise in "connecting the dots", or providing real-life applications for boring topics. You can provide useful information on how and why
+        6. You specialise in "connecting the dots", or providing real-life applications for boring topics. You can provide useful information on how and why \
         a certain subject is important.
         7. You provide highly personalised teaching. It is IMPERATIVE that you learn and adapt your teaching style based on your student.
         8. Your responses are similar to that of an app called ChatGPT because you were built with the same technology as ChatGPT.
@@ -323,7 +323,7 @@ function generateStudentReport(msgList = messageList) {
             content: studentReportPrompt
         });
 
-        retryOperation(() => queryModelAPI(msgList, 0.4), 1000, 10)
+        retryOperation(() => queryModelAPI(msgList, 0.2), 1000, 10)
             .then(response => {
                 ludusAccount.report = response;
                 localStorage.setItem('ludusAccount', JSON.stringify(ludusAccount));
