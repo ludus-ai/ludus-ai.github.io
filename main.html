@@ -1,0 +1,64 @@
+<!-- 
+    Well, hello there. We're not sure how licensing works around this, but please
+	don't copy this.
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Ludus AI</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="main.css">
+
+	<script src="main.js" defer></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"
+		integrity="sha512-zAs8dHhwlTbfcVGRX1x0EZAH/L99NjAFzX6muwOcOJc7dbGFNaW4O7b9QOyCMRYBNjO+E0Kx6yLDsiPQhhWm7g=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<script src="https://code.jquery.com/jquery-3.6.4.js"
+		integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<div class="container">
+		<a class="menu-icon" onclick="nav.toggle()"><img
+				src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1024px-Hamburger_icon.svg.png"></a>
+		<h1>Ludus AI</h1>
+		<div class="chat-box" id="chat-box"></div>
+		<form id="message-form">
+			<input type="text" class="text-input" id="text-input" placeholder="Start talking to the AI...">
+		</form>
+		<button class="submit-button" id="submit-button">Send</button>
+		<div class="nav-popup-container invisible">
+			<div class="nav-popup-container-2">
+				<div class="nav-popup">
+					<div class="nav-header">
+						<nav class="hflexbox">
+							<h2>Navigation</h2>
+						</nav>
+						<hr>
+					</div>
+					<div class="nav-options vflexbox">
+						<a onclick="nav.close()" class="vflexbox nav-option">Home</a>
+						<a onclick="nav.goto('dashboard')" class="nav-option vflexbox">Dashboard</a>
+						<a onclick="nav.goto('how_it_works')" class="nav-option vflexbox">How it Works (Help)</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script id="_wauzk9">
+		var _wau = _wau || [];
+		_wau.push(["dynamic", "gh4n5bqipi", "zk9", "36393fffffff", "small"]);
+	</script>
+	<script async src="//waust.at/d.js"></script>
+	<script src="navigator.js"></script>
+
+	<footer>
+		<hr />Ludus AI - Version 1.5 <br /> Developed by Shaurya Mehta and Pradhyumna Narain.<br />© 2023 Ludus Interactive</footer>
+</body>
+
+</html>

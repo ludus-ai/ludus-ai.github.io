@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+  <title>Welcome to Ludus AI</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500&display=swap');
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+    crossorigin="anonymous"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Poppins, sans-serif;
+      background-color: #36393F;
+      color: #FFF;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .title {
+      font-size: 3rem;
+      font-weight: bold;
+      font-family: Poppins, sans-serif;
+      margin: 0;
+      position: relative;
+      transition: all 0.3s ease;
+      color: #FFF;
+    }
+
+    .title .line {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #7289DA;
+      transform: scaleX(0);
+      transform-origin: bottom;
+      transition: transform 0.3s ease;
+    }
+
+    .title:hover .line {
+      transform: scaleX(1);
+    }
+
+    .subtitle {
+      font-family: Poppins;
+      font-size: 1.5rem;
+      margin: 0;
+      text-align: center;
+      color: #B9BBBE;
+      font-weight: normal;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      background-color: #7289DA;
+      color: #FFF;
+      font-size: 1rem;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 5px;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+
+      margin-bottom: 25px;
+    }
+
+    .btn:hover {
+      background-color: #677BC4;
+    }
+
+    :root {
+      --color-background: #36393F;
+      --color-text: #FFF;
+      --color-primary: #7289DA;
+      --color-primary-dark: #677BC4;
+      --color-secondary: #B9BBBE;
+    }
+
+    footer {
+      position: absolute;
+      width: 98vw;
+      margin-top: 10vh;
+      text-align: center;
+      font-family: Poppins, sans-serif;
+      font-weight: lighter;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="title">Ludus AI<span class="line"></span></h1>
+    <h2 class="subtitle">An interactive teacher for personalized education.</h2>
+    <a href="#" onclick="proceedToAccount()" class="btn">Try the prototype</a>
+    <a href="how_it_works.html" class="btn">Learn how it works</a>
+  </div>
+  <footer>
+    <hr />Version 1.5 <br /> Developed by Shaurya Mehta and Pradhyumna Narain.<br />© 2023 Ludus Interactive
+  </footer>
+
+  <script>
+    function proceedToAccount() {
+      // If Ludus Account exists, take user to Main
+      // If not, take user to Account
+
+      let ludusAccount = localStorage.getItem("ludusAccount");
+
+      if (ludusAccount) {
+        // Account exists
+        window.location = 'main.html'
+      } else {
+        // Account does not exist
+        window.location = 'create_account.html';
+      }
+    }
+  </script>
+</body>
+
+</html>
