@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/DarkWolf2244/LudusAI#readme",
   "devDependencies": {
+    "@capacitor/assets": "2.0.4",
     "@capacitor/cli": "^4.8.0",
     "electron-builder": "^23.6.0"
   },
