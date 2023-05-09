@@ -266,7 +266,7 @@ function compileMessageList() {
     return text
 }
 
-function addMessage(content, role) {
+function addMessage(content, role, specs = '') {
     // Switch out the placeholder for init
     inputText.placeholder = "Send a message to the AI..."
 
@@ -275,10 +275,13 @@ function addMessage(content, role) {
     newChatElement.innerHTML = content;
 
     chatBox.appendChild(newChatElement);
-    messageList.push({
-        role: role,
-        content: content
-    });
+
+    if (!specs.includes('temp')) {
+        messageList.push({
+            role: role,
+            content: content
+        });
+    }
 
     if (role == 'ai' || role == 'assistant') {
         messageElementList.push(newChatElement);
@@ -291,7 +294,7 @@ function sendUserMessage() {
 
     addMessage(text, "user");
 
-    addMessage("One moment...", "assistant")
+    addMessage("One moment...", "assistant", 'temp')
 
     inputText.classList.add("pulse");
 
@@ -382,7 +385,9 @@ function generateResponse(msgList = messageList) {
 function queryModelAPI(messages = messageList, temperature = ludusAccount.temperature) {
     if (apiEngaged) {
         return new Promise((resolve, reject) => {
-            reject({reason: "API engaged."});
+            reject({
+                reason: "API engaged."
+            });
         });
     } else {
         apiEngaged = true;
