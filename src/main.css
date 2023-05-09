@@ -200,6 +200,11 @@ hr {
     justify-content: center;
 }
 
+code {
+    font-family: Poppins, sans-serif;
+    font-weight: lighter;
+}
+
 footer {
     position: absolute;
     width: 98vw;
