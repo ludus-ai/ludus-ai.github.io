@@ -183,6 +183,10 @@
             background-color: rgba(255, 255, 0, 0.5);
         }
 
+        .deleteAccountBtnRow button {
+            transition: visibility 0s;
+        }
+        
         .popup {
             position: fixed;
             -webkit-transform: translate(-50%, -50%);
@@ -199,7 +203,7 @@
         }
 
         .nav-popup-container {
-            position: absolute;
+            position: fixed;
             display: flex;
             justify-content: center;
             flex-direction: row;
@@ -246,7 +250,7 @@
             background-color: #2f3136;
             border: solid 1px #40444b;
             border-radius: 5px;
-            transition: all 0.4s;
+            transition: background-color 0.4s, border-color 0.4s;
             cursor: pointer;
             min-height: 50px;
         }
@@ -273,6 +277,7 @@
             top: 0px;
             left: 0px;
             cursor: pointer;
+            margin: 0.5rem;
         }
 
         .menu-icon img {
@@ -311,7 +316,7 @@
 
     <div class="container">
         <a class="menu-icon" onclick="nav.toggle()"><img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1024px-Hamburger_icon.svg.png"></a>
+                src="images/menu-icon.png"></a>
         <div class="titleCard">
 
             <h1>Student Dashboard</h1>
@@ -335,7 +340,7 @@
                     </div>
                     <div class="studentDetail">
                         <h4>Your syllabus (CBSE, ICSE, STATE)</h4>
-                        <div class="scsdInput"></div>
+                        <div class="scsdInput"><button style="background-color: #333">Syllabus customisation will come soon</button></div>
                     </div>
                     <div class="studentDetail">
                         <h4>Your special interests</h4>
