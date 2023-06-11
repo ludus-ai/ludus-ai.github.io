@@ -168,13 +168,12 @@ You are Ludus, an AI teacher/assistant designed to assist and support students i
 `
 
 const studentReportPrompt = `
-Please generate a student report for your student. A student report outlines the student's strengths, weaknesses and attitude towards learning. 
+Please generate a student report for your student. A student report is a comprehensive academic review that outlines the student's strengths, weaknesses and attitude towards learning. 
 Steps to generate student report:
 1. Analyse student's strengths and weaknesses based on your chat.
-2. Try to learn their personality.
-3. IF THERE IS NOT ENOUGH DATA, DO NOT WRITE FALSE STATEMENTS. JUST GO ON WITH THE TEXT 'Not enough data.'
-4. Compile this report into a clean paragraph that looks like the example delimited by triple backticks.
-5. Do not provide anything else in your response. Wrap it in <p></p> tags.
+2. Try to infer their personality based on their messages.
+3. Do not infer anything based on their special interests.
+4. Compile this report into a clean paragraph that looks like the examples delimited by triple backticks.
 Example:
 \`\`\`
 [student] is highly skilled at trigonometry, and can grasp concepts with ease. They are able to absorb and memorise information well. [student], however \
@@ -182,7 +181,7 @@ tends to make mistakes under pressure, and sometimes makes simple calculation er
 
 [student] would fare well to practice simpler operations every day to build up their skills. [student] is very smart, and has a lot of potential. They just need to practice a bit more.
 \`\`\`
-Example 2;
+Example 2:
 \`\`\`
 [student] often expresses displeasure at me, and uses harsh language. Also, apart from their special interests, I do not have much data to create a report.
 \`\`\`
@@ -286,6 +285,8 @@ function addMessage(content, role, specs = '') {
     if (role == 'ai' || role == 'assistant') {
         messageElementList.push(newChatElement);
     }
+
+    hljs.highlightAll();
 }
 
 function sendUserMessage() {

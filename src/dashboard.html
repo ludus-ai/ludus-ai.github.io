@@ -58,7 +58,7 @@
 
         .titleCard {
             position: sticky;
-            width: 100%;
+            width: 90%;
             text-align: center;
         }
 
@@ -143,7 +143,7 @@
             text-decoration: none;
             text-transform: uppercase;
             letter-spacing: 2px;
-            transition: all 0.3s ease;
+            transition: background-color 0.3s ease;
 
             margin-bottom: 25px;
         }
@@ -163,7 +163,7 @@
             text-decoration: none;
             text-transform: uppercase;
             letter-spacing: 2px;
-            transition: all 0.3s ease;
+            transition: background-color 0.3s ease;
         }
 
         button.danger {
@@ -186,7 +186,7 @@
         .deleteAccountBtnRow button {
             transition: visibility 0s;
         }
-        
+
         .popup {
             position: fixed;
             -webkit-transform: translate(-50%, -50%);
@@ -296,6 +296,8 @@
             background-color: #2f3136;
             padding: 10px;
             word-wrap: normal;
+            font-weight: lighter;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
         }
 
         .tempRow {
@@ -307,20 +309,24 @@
 </head>
 
 <body>
+    <script>
+        let ludusAccount = JSON.parse(localStorage.getItem("ludusAccount"));
+        let formAccount = JSON.parse(JSON.stringify(ludusAccount));
+
+    </script>
     <div class="popup invisible" id="deleteAccountPopupCard">
         <h1>Delete my account</h1>
         <h4>Your details will be removed from your computer. Your AI profile will be deleted. This is permanent.
             Continue?</h4>
         <div class="deleteAccountBtnRow">
             <button class="danger" onclick="deleteAccount()">Yes, delete</button>
-            <button onclick="$('#deleteAccountPopupCard')[0].classList.add('invisible')">No, I changed my
+            <button onclick="hideElement($('#deleteAccountPopupCard')[0]);showElement($('.studentCard')[0])">No, I changed my
                 mind</button>
         </div>
     </div>
 
-    <div class="container">
-        <a class="menu-icon" onclick="nav.toggle()"><img
-                src="images/menu-icon.png"></a>
+    <div class="container" v-scope>
+        <a class="menu-icon" onclick="nav.toggle()"><img src="images/menu-icon.png"></a>
         <div class="titleCard">
 
             <h1>Student Dashboard</h1>
@@ -328,7 +334,7 @@
         </div>
         <div class="studentCard">
             <div class="scHeader">
-                <h2>Hello, ##account.name##.</h2>
+                <h2 v-effect="$el.innerText = 'Hello, ' + ludusAccount.name + '.'">Loading...</h2>
             </div>
             <div class="scBody">
                 <div class="scBodyHeader">
@@ -337,19 +343,21 @@
                         preferences as you like.</p>
                 </div>
                 <div class="scBodyStudentDetails">
-                    <div class="studentDetail">
+                    <div class="studentDetail" >
                         <h4>Your name</h4>
-                        <div class="scsdInput"><input type="text" value="##account.name##" class="inputText"></input>
+                        <div class="scsdInput"><input type="text" v-model="account.name"
+                                class="inputText"></input>
                         </div>
                     </div>
                     <div class="studentDetail">
                         <h4>Your syllabus (CBSE, ICSE, STATE)</h4>
-                        <div class="scsdInput"><button style="background-color: #333">Syllabus customisation will come soon</button></div>
+                        <div class="scsdInput"><button style="background-color: #333">Syllabus customisation will come
+                                soon</button></div>
                     </div>
                     <div class="studentDetail">
                         <h4>Your special interests</h4>
-                        <div class="scsdInput"><input type="text" value="##account.special_interests##"
-                                class="inputText"></input></div>
+                        <div class="scsdInput"><input type="text"
+                                class="inputText" v-model="account.special_interests"></input></div>
                     </div>
                     <div class="studentDetail">
                         <h4 style="font-weight: lighter">You are using our <b>Socrates</b> model.</h4>
@@ -359,7 +367,8 @@
 
                 </div>
                 <div class="scBodyUpdateRow">
-                    <button id="updateDataBtn" onclick="updateData()">Update</button>
+                    <!-- <button id="updateDataBtn" onclick="updateData()">Update</button> -->
+                    <div v-if="JSON.stringify(account) != JSON.stringify(ludusAccount)"><button v-on:click="updateData()">Update</button></div>
                 </div>
                 <hr>
                 <div class="scBodyTempSetting">
@@ -373,17 +382,17 @@
                         <button onclick="setAccountTemperature(0.5)">Balanced</button>
                         <button onclick="setAccountTemperature(0.8)">Creative</button>
                     </div>
-                    <p>Your AI will be ##account.temperatureFriendlyDescription##.</p>
+                    <p>Your AI is {{ account.temperatureFriendlyDescription }}.</p>
                 </div>
                 <hr>
                 <div class="scBodyReport">
                     <h2>Student Report</h2>
                     <p>This is your student report generated by your teacher. It's an outline of your strengths and
                         weaknesses, and also how you can improve.
-                        This is not a compehensive academic review, and since it's generated by AI, it may occasionally
+                        This is not an academic review, and since it's generated by AI, it may occasionally
                         be incorrect.
                     </p>
-                    <div class="studentReport">##account.report##</div>
+                    <div class="studentReport">{{ account.report }}</div>
                 </div>
                 <div class="scFooter">
                     <h4>Since this is a prototype, accounts are temporary, and all details are stored on your computer.
@@ -413,11 +422,26 @@
         </div>
     </div>
 
+    <script defer type="module">
+        import { createApp } from 'https://unpkg.com/petite-vue?module'
+          
+        
+          createApp({
+            // exposed to all expressions
+            account: formAccount,
+            ludusAccount: ludusAccount,
+            // methods
+            increment() {
+            }
+          }).mount()
+    </script>
     <script>
+        
+
         const studentCard = document.getElementsByClassName("studentCard")[0];
         const deleteAccountPopupCard = document.getElementById("deleteAccountPopupCard");
 
-        const ludusAccount = JSON.parse(localStorage.getItem("ludusAccount"));
+        
 
         function templateEngine(text, context) {
             // ##<text>## represents something to replacee
@@ -448,7 +472,7 @@
                 });
         }
 
-        renderHTML();
+        // renderHTML();
 
         if (!ludusAccount) {
             alert("Seems like your account was deleted. Redirecting to creation page...");
@@ -495,14 +519,14 @@
             console.log("Updating data to ")
             let inputs = $(".scsdInput input");
 
-            ludusAccount.name = inputs[0].value;
-            ludusAccount.special_interests = inputs[1].value;
+            ludusAccount.name = formAccount.name
+            ludusAccount.special_interests = formAccount.special_interests
 
             console.log(ludusAccount);
 
             localStorage.setItem("ludusAccount", JSON.stringify(ludusAccount));
 
-            $("#updateDataBtn")[0].classList.remove("pending");
+            // $("#updateDataBtn")[0].classList.remove("pending");
             location.reload();
         }
 
@@ -524,26 +548,26 @@
         let inputs = $(".scsdInput input");
         let inputMap = ['name', 'special_interests'];
 
-        for (let i = 0; i < inputs.length; i++) {
-            let input = inputs[i];
-            console.log("Updating...")
-            input.addEventListener('keydown', (e) => {
-                setTimeout(() => {
-                    console.log("Event listener")
-                    if (input.value != ludusAccount[inputMap[i]]) {
-                        console.log($('#updateDataBtn')[0].classList);
-                        console.log(input.value);
-                        console.log(ludusAccount[inputMap[i]]);
-                        if (!$("#updateDataBtn")[0].classList.contains('pending')) $("#updateDataBtn")[
-                            0].classList.add('pending')
-                    } else {
-                        $("#updateDataBtn")[0].classList.remove('pending')
-                    }
-                }, 500);
-            });
+        // for (let i = 0; i < inputs.length; i++) {
+        //     let input = inputs[i];
+        //     console.log("Updating...")
+        //     input.addEventListener('keydown', (e) => {
+        //         setTimeout(() => {
+        //             console.log("Event listener")
+        //             if (input.value != ludusAccount[inputMap[i]]) {
+        //                 console.log($('#updateDataBtn')[0].classList);
+        //                 console.log(input.value);
+        //                 console.log(ludusAccount[inputMap[i]]);
+        //                 if (!$("#updateDataBtn")[0].classList.contains('pending')) $("#updateDataBtn")[
+        //                     0].classList.add('pending')
+        //             } else {
+        //                 $("#updateDataBtn")[0].classList.remove('pending')
+        //             }
+        //         }, 500);
+        //     });
 
-            console.log("Added input listeneer")
-        }
+        //     console.log("Added input listeneer")
+        // }
     </script>
     <script src="navigator.js"></script>
 </body>
