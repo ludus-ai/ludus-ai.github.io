@@ -468,3 +468,23 @@ inputText.addEventListener('keydown', (e) => {
 });
 
 console.log("Congratulations you're now seeing a bunch of badly prefixed logs");
+
+let time = new Date();
+let hours = time.getHours();
+
+let timeOfDay = "";
+if (hours > 0 && hours < 12) {
+    timeOfDay = "morning";
+} else if (hours >= 12 && hours < 18) {
+    timeOfDay = "afternoon";
+} else {
+    timeOfDay = "evening";
+}
+
+let welcomeMessages = [
+    `Hi, ${ludusAccount.name.split(' ')[0]}. Interested in learning something today?`,
+    `Hey, ${ludusAccount.name.split(' ')[0]}! What topics would you like to learn about this ${timeOfDay}?`,
+    `Good ${timeOfDay}, ${ludusAccount.name.split(' ')[0]}. What can I help you learn today?`,
+]
+
+addMessage(chooseRandomElement(welcomeMessages), "assistant");
