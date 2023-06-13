@@ -24,6 +24,10 @@
 			padding: 0;
 		}
 
+		h1, h2, h3, h4, h5, h6, p, button {
+			font-family: 'Poppins', sans-serif;
+		}
+
 		.container {
 			display: flex;
 			flex-direction: column;
@@ -83,7 +87,7 @@
 			border-radius: 5px;
 			cursor: pointer;
 			font-size: 16px;
-			font-weight: 600;
+			font-weight: normal;
 			transition: background-color 0.2s ease-in-out;
 			margin-top: 30px;
 		}
@@ -100,6 +104,13 @@
 			background-color: #2f3136;
 			padding: 2vh 1vw;
 			margin-top: 2vh;
+			border: solid 1px rgba(0, 0, 0, 0);
+			transition: all 0.5s;
+			cursor: pointer;
+		}
+
+		details:hover {
+			border: solid 1px var(--discord-blurple);
 		}
 
 		summary {
@@ -130,10 +141,11 @@
 			<li>As you learn, the AI will adapt to your specific type of learning.</li>
 			<li>Use natural language. If you want to know something, ask it.</li>
 		</ol>
-		<img src="images/demo_intro.png">
 		<p>Introduce yourself to the AI.</p>
-		<img src="images/demo_talk.png">
+		<img src="images/demo_intro.png" style="width: 90%">
 		<p>Then just talk!</p>
+		<img src="images/demo_talk.png" style="width: 60%">
+
 		<a href="index.html"><button>Get Started</button></a>
 		<hr>
 		<h2>FAQ</h2>
@@ -177,7 +189,8 @@
 			<summary>What is a student report?</summary>
 			<p>A student report is a generalised report made by Ludus on your strengths, weaknesses and academic
 				personality. It may occasionally be incorrect
-				or refer to things you didn't say or do. Sorry about that, we're still working on it. You can see it on your
+				or refer to things you didn't say or do. Sorry about that, we're still working on it. You can see it on
+				your
 				dashboard.
 			</p>
 		</details>
@@ -231,6 +244,9 @@
 			<p>We'd love feedback. Email us at <b>feedback.ludusai@outlook.com</b>.
 			</p>
 		</details>
+		<br />
+		<p>Ready?</p>
+		<a href="index.html"><button>Get Started</button></a>
 	</div>
 </body>
 
