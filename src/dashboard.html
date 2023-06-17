@@ -298,6 +298,14 @@
             left: 0px;
             cursor: pointer;
             margin-left: 0.5rem;
+            padding: 0.7rem;
+            border-radius: 40px;
+
+            transition: background-color 0.5s;
+        }
+
+        .menu-icon:hover {
+            background-color: #2f3136;
         }
 
         .menu-icon img {
@@ -378,7 +386,7 @@
                     </div>
                     <div class="studentDetail">
                         <h4>Your special interests</h4>
-                        <div class="scsdInput"><input type="text" class="inputText"
+                        <div class="scsdInput"><input style="word-wrap: break-word;" type="text" class="inputText"
                                 v-model="account.special_interests"></input></div>
                     </div>
                     <div class="studentDetail">
