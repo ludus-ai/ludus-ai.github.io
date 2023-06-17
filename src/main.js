@@ -287,6 +287,8 @@ function addMessage(content, role, specs = '') {
     }
 
     hljs.highlightAll();
+
+    return newChatElement;
 }
 
 function sendUserMessage() {
@@ -295,7 +297,7 @@ function sendUserMessage() {
 
     addMessage(text, "user");
 
-    addMessage("One moment...", "assistant", 'temp')
+    addMessage("One moment...", "assistant", 'temp').classList.add('loading')
 
     inputText.classList.add("pulse");
 
@@ -335,12 +337,13 @@ const retryOperation = (operation, delay, retries) => new Promise((resolve, reje
 
 function generateStudentReport(msgList = messageList) {
     return new Promise((resolve, reject) => {
-        msgList.push({
+        let newMsgList = JSON.parse(JSON.stringify(msgList))
+        newMsgList.push({
             role: 'system',
             content: studentReportPrompt
         });
 
-        retryOperation(() => queryModelAPI(msgList, 0.2), 1000, 10)
+        retryOperation(() => queryModelAPI(newMsgList   , 0.2), 1000, 10)
             .then(response => {
                 ludusAccount.report = response;
                 localStorage.setItem('ludusAccount', JSON.stringify(ludusAccount));
