@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Creation</title>
+  <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+    crossorigin="anonymous"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500&display=swap');
+  </style>
+
+  <style>
+    :root {
+      --discord-blurple: #7289da;
+      --discord-dark: #36393f;
+      --discord-light: #fff;
+      --discord-grey: #99aab5;
+    }
+
+    body {
+      background-color: var(--discord-dark);
+      font-family: Poppins, sans-serif;
+      font-size: 16px;
+      color: var(--discord-light);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    form {
+      background-color: var(--discord-dark);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      width: 500px;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--discord-light);
+      font-size: 28px;
+      margin-right: 50px;
+      font-family: Poppins, sans-serif;
+      font-weight: lighter;
+      position: relative;
+    }
+
+    .line {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #7289DA;
+      transform: scaleX(0);
+      transform-origin: bottom;
+      transition: transform 0.3s ease;
+    }
+
+    h1:hover .line {
+      transform: scaleX(1);
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--discord-grey);
+      font-size: 16px;
+      font-weight: normal;
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-family: Arial, sans-serif;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--discord-grey);
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid var(--discord-grey);
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      background-color: var(--discord-dark);
+      color: var(--discord-light);
+      font-family: Poppins, sans-serif;
+      font-size: 1rem;
+    }
+
+    textarea {
+      font-weight: lighter;
+    }
+
+    button {
+      background-color: var(--discord-blurple);
+      color: var(--discord-light);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      font-family: Poppins, sans-serif;
+      font-weight: 400;
+    }
+
+    button:hover {
+      background-color: var(--discord-grey);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Enter some details to use for your account.<span class="line"></span></h1>
+  <form>
+    <label for="name">Name:</label>
+    <input type="text" name="name" id="name" required>
+    <br>
+    <label for="interests">Special Interests:</label>
+    <textarea name="interests" id="interests" required></textarea>
+    <br>
+    <button id="btn" value="Create Account">Create Account</button>
+  </form>
+
+  <script defer>
+    const btn = document.getElementById("btn");
+    const nameInput = document.getElementById("name");
+    const interestsInput = document.getElementById("interests");
+
+    function continueToMain(e) {
+      e.preventDefault();
+
+      if (!nameInput.value || !interestsInput.value) {
+        nameInput.placeholder = !nameInput.value ? "Please enter a name for the AI to address you." : "";
+        interestsInput.placeholder = !interestsInput.value ?
+          "Please enter some interests to personalise your conversation." : "";
+
+        // TODO add a way for the user to enter their age, or maybe just some info on themselves
+        return;
+      }
+
+      let ludusAccount = {
+        name: nameInput.value.trim(),
+        special_interests: interestsInput.value,
+        report: "We'll generate a report once you've talked a bit more to Ludus.",
+        temperature: 0.5,
+        temperatureFriendlyDescription: "balanced in its answers"
+      }
+
+      localStorage.setItem("ludusAccount", JSON.stringify(ludusAccount));
+
+      console.log("Created new Ludus Account.");
+      console.log(localStorage.getItem("ludusAccount"));
+
+      window.location = "main.html"
+    }
+
+    btn.addEventListener('click', continueToMain)
+  </script>
+
+
+</body>
+
+</html>

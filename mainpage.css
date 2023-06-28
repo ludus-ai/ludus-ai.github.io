@@ -1,0 +1,23 @@
+:root {
+    --discord-blurple: #7289da;
+    --discord-dark: #36393f;
+    --discord-light: #fff;
+    --discord-grey: #99aab5;
+  }
+
+
+  body {
+    background-color: var(--discord-dark);
+    color: var(--discord-light);
+  }
+  
+  .header {
+    background-color: var(--discord-grey);
+  }
+  
+  .button {
+    background-color: var(--discord-blurple);
+    color: var(--discord-light);
+  }
+  
+      
